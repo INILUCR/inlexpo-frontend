@@ -6,15 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.sass']
 })
 export class NavbarComponent implements OnInit {
-  active = 1;
+  activo = 1;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  setActivo(active: number) {
-    this.active = active;
+  setActivo(activo: number) {
+    this.activo = activo;
   }
 
 }

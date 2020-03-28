@@ -1,0 +1,7 @@
+<div class="titular">
+  <div class="nombre-pagina">Listado de Diccionarios</div>
+  <app-boton [tipo]="'aceptar'" [contenido]="'Agregar Diccionario'"></app-boton>
+</div>
+<app-resumen-diccionario *ngFor="let diccionario of diccionarios | async"
+                         [diccionario]="diccionario"
+></app-resumen-diccionario>
