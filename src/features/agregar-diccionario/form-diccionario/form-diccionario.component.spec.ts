@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DiccionarioComponent } from './diccionario.component';
+import { FormDiccionarioComponent } from './form-diccionario.component';
 
-describe('DiccionarioComponent', () => {
-  let component: DiccionarioComponent;
-  let fixture: ComponentFixture<DiccionarioComponent>;
+describe('FormDiccionarioComponent', () => {
+  let component: FormDiccionarioComponent;
+  let fixture: ComponentFixture<FormDiccionarioComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DiccionarioComponent ]
+      declarations: [ FormDiccionarioComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DiccionarioComponent);
+    fixture = TestBed.createComponent(FormDiccionarioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,25 @@
+<div class="contenedor-form">
+  <div class="instruccion-form">{{instrucciones}}</div>
+
+  <form class="form" [formGroup]="diccionarioForm" (ngSubmit)="onSubmit()">
+    <label class="nombre-entrada">
+      Nombre:
+      <input type="text" formControlName="nombre" class="contenido-entrada">
+    </label>
+
+    <label class="nombre-entrada">
+      Tipo:
+      <input type="text" formControlName="tipo" class="contenido-entrada">
+    </label>
+
+    <label class="nombre-entrada">
+      Descripcion:
+      <textarea formControlName="descripcion" class="contenido-entrada areatexto"></textarea>
+    </label>
+
+    <div class="botones">
+      <app-boton [tipo]="'button'" [clase]="'cancelar'" [contenido]="'Cancelar'"></app-boton>
+      <app-boton [tipo]="'submit'" [clase]="'aceptar'" [contenido]="'Siguiente'"></app-boton>
+    </div>
+  </form>
+</div>

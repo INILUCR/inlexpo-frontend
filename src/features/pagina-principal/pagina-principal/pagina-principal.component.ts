@@ -4,11 +4,11 @@ import { Diccionario } from '../../../core/models/diccionario';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-lista-diccionarios',
-  templateUrl: './lista-diccionarios.component.html',
-  styleUrls: ['./lista-diccionarios.component.sass']
+  selector: 'app-pagina-principal',
+  templateUrl: './pagina-principal.component.html',
+  styleUrls: ['./pagina-principal.component.sass']
 })
-export class ListaDiccionariosComponent implements OnInit {
+export class PaginaPrincipalComponent implements OnInit {
 
   diccionarios: Observable<Diccionario[]>;
 
