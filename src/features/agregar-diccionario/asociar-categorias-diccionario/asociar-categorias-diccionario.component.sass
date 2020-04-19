@@ -11,8 +11,78 @@
   border-bottom-width: 0.1rem
 
 .form
+  font-size: $font-size-regular
+  margin: 1rem 0
+
+.categorias-gramaticales
   display: flex
-  flex-direction: column
+  flex-wrap: wrap
+  justify-content: space-around
+
+.categoria-gramatical
+  background-color: $primary_color
+  color: $white
+  padding: 0.5rem
+  display: inline-block
+  border-left-style: solid
+  border-left-width: 0.1rem
+  border-right-style: solid
+  border-right-width: 0.1rem
+  border-color: $primary_color
+
+.categoria-gramatical.borde-inferior
+  border-bottom-style: solid
+  border-bottom-width: 0.1rem
+  border-bottom-color: $success_color
+
+
+.nombre-categoria-gramatical
+  width: 10rem
+  display: inline-block
+
+
+.subcategoria-gramatical
+  padding: 0.5rem
+  display: inline-block
+  border-style: solid
+  border-width: 0.1rem
+  border-color: $secondary_color
+  border-top-style: none
+
+.contenido-entrada
+  font-size: $font-size-regular !important
+  font-family: $primary_font !important
+  margin: 0 1rem
+  width: 5rem
+
+.checkbox
+  width: 1.5rem
+  height: 1.5rem
+  border: 0.1rem solid $secondary_color
+  border-radius: 0.1rem
+  appearance: none
+  outline: 0
+  cursor: pointer
+  transition: background 175ms cubic-bezier(0.1, 0.1, 0.25, 1)
+
+  &::before
+    margin: auto
+    content: ''
+    display: block
+    width: 0.5rem
+    height: 0.8rem
+    border-style: solid
+    border-color: $white
+    border-width: 0 0.15rem 0.15rem 0
+    transform: rotate(45deg)
+    opacity: 0
+
+  &:checked
+    color: $white
+    border-color: $success_color
+    background: $success_color
+    &::before
+      opacity: 1
 
 .botones
   display: flex

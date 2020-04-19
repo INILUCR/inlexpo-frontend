@@ -4,8 +4,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
-import { DiccionariosModule } from '../features/diccionarios/diccionarios.module';
 import { HttpClientModule } from '@angular/common/http';
+import { PaginaPrincipalModule } from '../features/pagina-principal/pagina-principal.module';
+import { AgregarDiccionarioModule } from '../features/agregar-diccionario/agregar-diccionario.module';
 
 @NgModule({
   declarations: [
@@ -15,12 +16,12 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DiccionariosModule,
-    HttpClientModule
+    HttpClientModule,
+    PaginaPrincipalModule,
+    AgregarDiccionarioModule
   ],
   providers: [],
-  exports: [
-  ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
