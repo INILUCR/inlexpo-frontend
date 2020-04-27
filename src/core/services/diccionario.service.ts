@@ -7,11 +7,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DiccionarioService {
-  private diccionarioUrl = 'http://localhost:8080/inlexpo/diccionarios';
+  private diccionarioUrl = 'http://localhost:8080/inlexpo/diccionario';
 
   constructor(private http: HttpClient) { }
 
-  public findAll(): Observable<Diccionario[]> {
+  public buscarTodos(): Observable<Diccionario[]> {
     return this.http.get<Diccionario[]>(this.diccionarioUrl);
+  }
+
+  public crear(nuevoDiccionario: Diccionario): Observable<Diccionario> {
+    return this.http.post<Diccionario>(this.diccionarioUrl, nuevoDiccionario);
   }
 }

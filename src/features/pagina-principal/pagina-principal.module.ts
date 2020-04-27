@@ -4,6 +4,7 @@ import { PaginaPrincipalComponent } from './pagina-principal/pagina-principal.co
 import { ResumenDiccionarioComponent } from './resumen-diccionario/resumen-diccionario.component';
 import { DiccionarioService } from '../../core/services/diccionario.service';
 import { SharedModule } from '../../shared/shared.module';
+import {RouterModule} from '@angular/router';
 
 
 
@@ -14,7 +15,8 @@ import { SharedModule } from '../../shared/shared.module';
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   providers: [
     DiccionarioService

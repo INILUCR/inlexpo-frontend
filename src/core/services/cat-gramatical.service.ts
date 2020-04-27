@@ -10,10 +10,10 @@ export class CatGramaticalService {
   private catGramaticalUrl: string;
 
   constructor(private http: HttpClient) {
-    this.catGramaticalUrl = 'http://localhost:8080/inlexpo/catGrm';
+    this.catGramaticalUrl = 'http://localhost:8080/inlexpo/catGramatical';
   }
 
-  public findAllWithSubGramatical(): Observable<CatGramatical[]> {
-    return this.http.get<CatGramatical[]>(this.catGramaticalUrl + '/subGrm');
+  public buscarTodosConSubcategoriasAsociadas(): Observable<CatGramatical[]> {
+    return this.http.get<CatGramatical[]>(this.catGramaticalUrl + '/subGramatical');
   }
 }

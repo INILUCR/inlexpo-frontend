@@ -36,7 +36,7 @@
                     <input type="text" formControlName="abreviatura" class="contenido-entrada">
                   </label>
 
-                  <input type="checkbox" class="checkbox">
+                  <input type="checkbox" formControlName="marcado" class="checkbox">
                 </div>
               </div>
             </div>
@@ -46,8 +46,9 @@
     </div>
 
     <div class="botones">
-      <app-boton [tipo]="'button'" [clase]="'cancelar'" [contenido]="'Anterior'"></app-boton>
-      <app-boton [tipo]="'submit'" [clase]="'aceptar'" [contenido]="'Siguiente'"></app-boton>
+      <app-boton [tipo]="'button'" [clase]="'cancelar'" [contenido]="'Anterior'" [routerLink]="['../form-diccionario']"></app-boton>
+      <app-boton [tipo]="'submit'" [clase]="'aceptar'" [contenido]="'Siguiente'"
+                 [style.pointer-events]="categoriasDiccionarioForm.invalid ?'none':'auto'"></app-boton>
     </div>
   </form>
 </div>

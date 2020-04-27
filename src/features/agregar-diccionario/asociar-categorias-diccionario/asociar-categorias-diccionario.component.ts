@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatGramaticalService } from '../../../core/services/cat-gramatical.service';
-import { Observable } from 'rxjs';
 import { CatGramatical } from '../../../core/models/cat-gramatical';
+import { CatGrmDiccionario } from '../../../core/models/cat-grm-diccionario';
+import { SubGrmDiccionario } from '../../../core/models/sub-grm-diccionario';
+import { AbreviaturaValida } from './custom-validator.validator';
+import { ComunicadorParaCategoriasAsociadasService } from '../../../core/services/comunicador-para-categorias-asociadas.service';
 
 @Component({
   selector: 'app-asociar-categorias-diccionario',
@@ -15,15 +18,16 @@ export class AsociarCategoriasDiccionarioComponent implements OnInit {
   categoriasDiccionarioForm: FormGroup;
   catGramaticales: CatGramatical[];
 
-
-  constructor(private formBuilder: FormBuilder, private catGramaticalService: CatGramaticalService) { }
+  constructor(private formBuilder: FormBuilder,
+              private catGramaticalService: CatGramaticalService,
+              private ccaService: ComunicadorParaCategoriasAsociadasService) { }
 
   ngOnInit() {
     this.categoriasDiccionarioForm = this.formBuilder.group({
       catGramaticales: new FormArray([])
     });
 
-    this.catGramaticalService.findAllWithSubGramatical().subscribe(catGramaticales => {
+    this.catGramaticalService.buscarTodosConSubcategoriasAsociadas().subscribe(catGramaticales => {
       this.catGramaticales = catGramaticales;
       this.crearForm();
     });
@@ -39,16 +43,26 @@ export class AsociarCategoriasDiccionarioComponent implements OnInit {
   crearForm() {
     for (let i = 0; i < this.catGramaticales.length; ++i) {
       this.catGramaticalesFormArray().insert(i, this.formBuilder.group({
-        abreviatura: ['', Validators.required],
+        id: [this.catGramaticales[i].id, Validators.required],
+        abreviatura: [''],
         marcado: [false],
         subGramaticales: new FormArray([])
-      }));
+      },
+        {
+          validator: AbreviaturaValida('marcado', 'abreviatura')
+        }
+      ));
 
       for (let e = 0; e < this.catGramaticales[i].listaSubGramatical.length; ++e) {
         this.subGramaticalesFormArray(this.catGramaticalFormGroup(i)).insert(e, this.formBuilder.group({
-          abreviatura: ['', Validators.required],
+          id: [this.catGramaticales[i].listaSubGramatical[e].id, Validators.required],
+          abreviatura: [''],
           marcado: [false]
-        }));
+        },
+          {
+            validator: AbreviaturaValida('marcado', 'abreviatura')
+          }
+        ));
       }
     }
   }
@@ -107,6 +121,36 @@ export class AsociarCategoriasDiccionarioComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.categoriasDiccionarioForm.value);
+    if (this.categoriasDiccionarioForm.valid) {
+      var catSubAsociadas = [];
+      var catGrmDiccionarios = [];
+      var subGrmDiccionarios = [];
+
+      for (var catGramatical of this.categoriasDiccionarioForm.value.catGramaticales) {
+        if (catGramatical.marcado) {
+          var nuevoCatGrmDic = new CatGrmDiccionario();
+          nuevoCatGrmDic.catGramaticalId = catGramatical.id;
+          nuevoCatGrmDic.abreviatura = catGramatical.abreviatura;
+
+          catGrmDiccionarios.push(nuevoCatGrmDic);
+        }
+
+        for (var subGramatical of catGramatical.subGramaticales) {
+          if (subGramatical.marcado) {
+            var nuevoSubGrmDic = new SubGrmDiccionario();
+            nuevoSubGrmDic.catGramaticalId = catGramatical.id;
+            nuevoSubGrmDic.subGramaticalId = subGramatical.id;
+            nuevoSubGrmDic.abreviatura = subGramatical.abreviatura;
+
+            subGrmDiccionarios.push(nuevoSubGrmDic);
+          }
+        }
+      }
+
+      catSubAsociadas.push(catGrmDiccionarios);
+      catSubAsociadas.push(subGrmDiccionarios);
+
+      this.ccaService.emitChange(catSubAsociadas);
+    }
   }
 }

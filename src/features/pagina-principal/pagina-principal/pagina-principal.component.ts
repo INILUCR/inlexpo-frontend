@@ -19,7 +19,7 @@ export class PaginaPrincipalComponent implements OnInit {
   }
 
   cargarDiccionarios() {
-    this.diccionarios = this.diccionarioService.findAll();
+    this.diccionarios = this.diccionarioService.buscarTodos();
   }
 
 }

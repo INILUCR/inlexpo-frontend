@@ -18,8 +18,9 @@
     </label>
 
     <div class="botones">
-      <app-boton [tipo]="'button'" [clase]="'cancelar'" [contenido]="'Cancelar'"></app-boton>
-      <app-boton [tipo]="'submit'" [clase]="'aceptar'" [contenido]="'Siguiente'"></app-boton>
+      <app-boton [tipo]="'button'" [clase]="'cancelar'" [contenido]="'Cancelar'" [routerLink]="['/pagina-principal']"></app-boton>
+      <app-boton [tipo]="'submit'" [clase]="'aceptar'" [contenido]="'Siguiente'"
+                 [style.pointer-events]="diccionarioForm.invalid ?'none':'auto'"></app-boton>
     </div>
   </form>
 </div>
