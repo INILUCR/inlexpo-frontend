@@ -4,6 +4,7 @@ import { PaginaPrincipalComponent } from '../features/pagina-principal/pagina-pr
 import { AgregarDiccionarioComponent } from '../features/agregar-diccionario/agregar-diccionario/agregar-diccionario.component';
 import { FormDiccionarioComponent } from '../features/agregar-diccionario/form-diccionario/form-diccionario.component';
 import { AsociarCategoriasDiccionarioComponent } from '../features/agregar-diccionario/asociar-categorias-diccionario/asociar-categorias-diccionario.component';
+import { DiccionarioComponent } from '../features/diccionario/diccionario/diccionario.component';
 
 
 const routes: Routes = [
@@ -14,8 +15,9 @@ const routes: Routes = [
       { path: 'form-diccionario', component: FormDiccionarioComponent },
       { path: 'asociar-categorias-diccionario', component: AsociarCategoriasDiccionarioComponent },
       { path: '', redirectTo: 'form-diccionario', pathMatch: 'full'}
-    ]
+    ],
   },
+  { path: 'diccionario', component: DiccionarioComponent },
   { path: '', redirectTo: 'pagina-principal', pathMatch: 'full' }
 ];
 

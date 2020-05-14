@@ -4,4 +4,5 @@
 </div>
 <app-resumen-diccionario *ngFor="let diccionario of diccionarios | async"
                          [diccionario]="diccionario"
+                         [routerLink]="['/diccionario']"
 ></app-resumen-diccionario>
