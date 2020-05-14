@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Diccionario } from '../models/diccionario';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Diccionario } from '../models/diccionario';
 })
 export class ComunicadorParaDiccionarioCreadoService {
   // Observable string sources
-  private emitChangeSource = new Subject<Diccionario>();
+  private emitChangeSource = new BehaviorSubject<Diccionario>(null);
   // Observable string streams
   changeEmitted$ = this.emitChangeSource.asObservable();
   // Service message commands

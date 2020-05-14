@@ -8,6 +8,7 @@ import { ComunicadorParaDiccionarioCreadoService } from '../../../core/services/
 import { Router } from '@angular/router';
 import { CatGrmDiccionarioService } from '../../../core/services/cat-grm-diccionario.service';
 import { SubGrmDiccionarioService } from '../../../core/services/sub-grm-diccionario.service';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-agregar-diccionario',
@@ -20,18 +21,23 @@ export class AgregarDiccionarioComponent implements OnInit {
   categoriasAsociadas: CatGrmDiccionario[];
   subcategoriasAsociadas: SubGrmDiccionario[];
 
+  cdcServiceSubscription: Subscription;
+  ccaServiceSubscription: Subscription;
+
   constructor(private diccionarioService: DiccionarioService,
               private cdcService: ComunicadorParaDiccionarioCreadoService,
               private ccaService: ComunicadorParaCategoriasAsociadasService,
               private catGrmDicService: CatGrmDiccionarioService,
               private subGrmDicService: SubGrmDiccionarioService,
               private router: Router) {
-    cdcService.changeEmitted$.subscribe(nuevoDiccionario => {
+    this.cdcServiceSubscription = cdcService.changeEmitted$.subscribe(nuevoDiccionario => {
       this.onDiccionarioCreado(nuevoDiccionario);
     });
 
-    ccaService.changeEmitted$.subscribe(catSubAsociadas => {
+
+    this.ccaServiceSubscription = ccaService.changeEmitted$.subscribe(catSubAsociadas => {
       this.onCatSubAsociadas(catSubAsociadas);
+      this.unsubscribe();
     });
   }
 
@@ -58,10 +64,14 @@ export class AgregarDiccionarioComponent implements OnInit {
         }
 
         this.subGrmDicService.crear(this.subcategoriasAsociadas).subscribe(subcategoriasAsociadas => {
-          console.log(subcategoriasAsociadas);
           this.router.navigate(['pagina-principal']);
         });
       });
     });
+  }
+
+  unsubscribe() {
+    this.cdcServiceSubscription.unsubscribe();
+    this.ccaServiceSubscription.unsubscribe();
   }
 }
