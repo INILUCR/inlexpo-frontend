@@ -5,9 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
-import { PaginaPrincipalModule } from '../features/pagina-principal/pagina-principal.module';
 import { AgregarDiccionarioModule } from '../features/agregar-diccionario/agregar-diccionario.module';
-import { DiccionarioModule } from '../features/diccionario/diccionario.module';
 
 @NgModule({
   declarations: [
@@ -18,9 +16,7 @@ import { DiccionarioModule } from '../features/diccionario/diccionario.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    PaginaPrincipalModule,
     AgregarDiccionarioModule,
-    DiccionarioModule,
   ],
   providers: [],
   exports: [],
