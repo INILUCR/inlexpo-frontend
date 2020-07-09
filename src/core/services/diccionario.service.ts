@@ -15,7 +15,7 @@ export class DiccionarioService {
     return this.http.get<Diccionario[]>(this.diccionarioUrl);
   }
 
-  public crear(nuevoDiccionario: Diccionario): Observable<Diccionario> {
-    return this.http.post<Diccionario>(this.diccionarioUrl, nuevoDiccionario);
+  public crear(diccionario: Diccionario): Observable<Diccionario> {
+    return this.http.post<Diccionario>(this.diccionarioUrl, diccionario);
   }
 }

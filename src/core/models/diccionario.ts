@@ -3,5 +3,4 @@ export class Diccionario {
   nombre: string;
   descripcion: string;
   tipo: string;
-  publicado: boolean;
 }

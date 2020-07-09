@@ -4,5 +4,6 @@ export class CatGramatical {
   id: bigint;
   nombre: string;
   descripcion: string;
-  listaSubGramatical: SubGramatical[];
+  abreviatura: string;
+  subGramaticales: SubGramatical[];
 }
