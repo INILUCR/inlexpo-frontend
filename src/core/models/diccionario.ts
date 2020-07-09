@@ -1,5 +1,5 @@
 export class Diccionario {
-  id: bigint;
+  id: number;
   nombre: string;
   descripcion: string;
   tipo: string;

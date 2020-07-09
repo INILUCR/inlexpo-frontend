@@ -1,5 +1,5 @@
 export class SubGramatical {
-  id: bigint;
+  id: number;
   nombre: string;
   descripcion: string;
   abreviatura: string;
