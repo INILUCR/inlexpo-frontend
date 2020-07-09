@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { Diccionario } from 'src/core/models/diccionario';
+import { DiccionarioService } from 'src/core/services/diccionario.service';
+import { CatGramatical } from 'src/core/models/cat-gramatical';
+import { CatGramaticalService } from 'src/core/services/cat-gramatical.service';
+import { SubGramaticalService } from 'src/core/services/sub-gramatical.service';
 
 @Component({
   selector: 'app-agregar-diccionario',
@@ -10,7 +15,10 @@ export class AgregarDiccionarioComponent {
 
   diccionarioFormGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private diccionarioService: DiccionarioService,
+              private catGramaticalService: CatGramaticalService,
+              private subGramaticalService: SubGramaticalService) {
     // Creamos un form group que consta de tres partes
     // 1. El diccionario
     // 2. Sus categorias gramaticales y subcategorias
@@ -107,6 +115,25 @@ export class AgregarDiccionarioComponent {
   /* ----- Metodos para guardar en la base de datos ----- */
 
   onSubmit() {
-    console.log(this.diccionarioFormGroup.value);
+    const diccionario = this.diccionarioFormGroup.value.diccionario as Diccionario;
+
+    // Primero agregamos el diccionario a la base de datos
+    this.diccionarioService.crear(diccionario).subscribe(diccionarioNuevo => {
+      // Agregamos las categorias a la base de datos
+      const catGramaticales = this.diccionarioFormGroup.value.catGramaticales as CatGramatical[];
+
+      catGramaticales.forEach(catGramatical => {
+        this.catGramaticalService.crear(diccionarioNuevo.id, catGramatical).subscribe(categoriaNueva => {
+          // Agregamos las subcategorias a la base de datos
+          const subGramaticales = catGramatical.subGramaticales;
+
+          subGramaticales.forEach(subGramatical => {
+            this.subGramaticalService.crear(categoriaNueva.id, subGramatical).subscribe(subcategoriaNueva => {
+              console.log(subcategoriaNueva);
+            });
+          });
+        });
+      });
+    });
   }
 }
