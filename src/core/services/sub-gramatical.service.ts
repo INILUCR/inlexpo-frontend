@@ -13,7 +13,7 @@ export class SubGramaticalService {
     this.subGramaticalUrl = 'http://localhost:8080/inlexpo/catGramatical/';
   }
 
-  public crear(catGramaticalId: bigint, subGramatical: SubGramatical): Observable<SubGramatical> {
+  public crear(catGramaticalId: number, subGramatical: SubGramatical): Observable<SubGramatical> {
     return this.http.post<SubGramatical>(this.subGramaticalUrl + catGramaticalId + '/subGramatical', subGramatical);
   }
 }

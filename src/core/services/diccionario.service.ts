@@ -15,6 +15,10 @@ export class DiccionarioService {
     return this.http.get<Diccionario[]>(this.diccionarioUrl);
   }
 
+  public buscarPorId(diccionarioId: number): Observable<Diccionario> {
+    return this.http.get<Diccionario>(this.diccionarioUrl + '/' + diccionarioId);
+  }
+
   public crear(diccionario: Diccionario): Observable<Diccionario> {
     return this.http.post<Diccionario>(this.diccionarioUrl, diccionario);
   }

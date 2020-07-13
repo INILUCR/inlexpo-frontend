@@ -13,7 +13,7 @@ export class CatGramaticalService {
     this.catGramaticalUrl = 'http://localhost:8080/inlexpo/diccionario/';
   }
 
-  public crear(diccionarioId: bigint, catGramatical: CatGramatical): Observable<CatGramatical> {
+  public crear(diccionarioId: number, catGramatical: CatGramatical): Observable<CatGramatical> {
     return this.http.post<CatGramatical>(this.catGramaticalUrl + diccionarioId + '/catGramatical', catGramatical);
   }
 }
