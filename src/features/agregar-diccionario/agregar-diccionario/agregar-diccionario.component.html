@@ -33,7 +33,7 @@
 
   <!-- Iteramos por cada categoria que se va agregando -->
   <div formArrayName="catGramaticales" 
-    *ngFor="let catGramatical of getCatGramaticales().controls; index as i;">
+    *ngFor="let catGramatical of getCatGramaticales().controls; index as index;">
 
     <h3>Categoria gramatical</h3>
     
@@ -57,11 +57,13 @@
           Descripcion:
           <textarea formControlName="descripcion"></textarea>
         </label>
+
+        <a type="button" (click)="deleteCatGramatical(index)">Eliminar</a>
       </p>
 
       <!-- Iteramos por las subcategorias gramaticales -->
       <div formArrayName="subGramaticales"
-        *ngFor="let subGramatical of getSubGramaticales(catGramatical).controls; index as i;">
+        *ngFor="let subGramatical of getSubGramaticales(catGramatical).controls; index as index2;">
 
         <h4>Subcategoria gramatical</h4>
 
@@ -85,6 +87,8 @@
               Descripcion:
               <textarea formControlName="descripcion"></textarea>
             </label>
+
+            <a type="button" (click)="deleteSubGramatical(catGramatical, index2)">Eliminar</a>
           </p>
         </div>
       </div>

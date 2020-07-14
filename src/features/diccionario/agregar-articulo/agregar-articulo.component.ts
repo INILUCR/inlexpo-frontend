@@ -61,6 +61,12 @@ export class AgregarArticuloComponent implements OnInit {
     }));
   }
 
+  deleteAcepcion(index: number) {
+    const acepciones = this.getAcepciones();
+
+    acepciones.removeAt(index);
+  }
+
   /* ----- Metodos para guardar en la base de datos ----- */
 
   onSubmit() {
@@ -75,9 +81,11 @@ export class AgregarArticuloComponent implements OnInit {
 
       acepciones.forEach(acepcion => {
         this.acepcionService.crear(articuloNuevo.id, acepcion['catGramaticalAsc'], acepcion).subscribe(acepcionNueva => {
-          this.router.navigate(['diccionario/' + diccionarioId]);
+          // No hace nada
         });
       });
     });
+
+    this.router.navigate(['diccionario/' + diccionarioId]);
   }
 }

@@ -5,6 +5,7 @@ import { DiccionarioService } from 'src/core/services/diccionario.service';
 import { CatGramatical } from 'src/core/models/cat-gramatical';
 import { CatGramaticalService } from 'src/core/services/cat-gramatical.service';
 import { SubGramaticalService } from 'src/core/services/sub-gramatical.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-diccionario',
@@ -18,7 +19,8 @@ export class AgregarDiccionarioComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private diccionarioService: DiccionarioService,
               private catGramaticalService: CatGramaticalService,
-              private subGramaticalService: SubGramaticalService) {}
+              private subGramaticalService: SubGramaticalService,
+              private router: Router) {}
 
   ngOnInit() {
     // Creamos un form group que consta de tres partes
@@ -70,6 +72,12 @@ export class AgregarDiccionarioComponent implements OnInit {
     }));
   }
 
+  deleteCatGramatical(index: number) {
+    const catGramaticales = this.getCatGramaticales();
+
+    catGramaticales.removeAt(index);
+  }
+
   getSubGramaticales(catGramatical: FormGroup): FormArray {
     return catGramatical.get('subGramaticales') as FormArray;
   }
@@ -82,6 +90,12 @@ export class AgregarDiccionarioComponent implements OnInit {
       abreviatura: this.formBuilder.control(''),
       descripcion: this.formBuilder.control(''),
     }));
+  }
+
+  deleteSubGramatical(catGramatical: FormGroup, index: number) {
+    const subGramaticales = this.getSubGramaticales(catGramatical);
+
+    subGramaticales.removeAt(index);
   }
 
   /* ------ Metodos para administrar la informacion ------ */
@@ -131,11 +145,13 @@ export class AgregarDiccionarioComponent implements OnInit {
 
           subGramaticales.forEach(subGramatical => {
             this.subGramaticalService.crear(categoriaNueva.id, subGramatical).subscribe(subcategoriaNueva => {
-              console.log(subcategoriaNueva);
+              // No hacer nada
             });
           });
         });
       });
     });
+
+    this.router.navigate(['inicio']);
   }
 }

@@ -19,7 +19,7 @@
 
   <!-- Iteramos por cada categoria que se va agregando -->
   <div formArrayName="acepciones" 
-    *ngFor="let acepcion of getAcepciones().controls; index as i;">
+    *ngFor="let acepcion of getAcepciones().controls; index as index;">
 
     <h3>Acepción</h3>
 
@@ -46,6 +46,8 @@
           Definición:
           <textarea formControlName="definicion"></textarea>
         </label>
+
+        <a type="button" (click)="deleteAcepcion(index)">Eliminar</a>
       </p>
     </div>
   </div>
