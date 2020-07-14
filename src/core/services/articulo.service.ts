@@ -14,4 +14,8 @@ export class ArticuloService {
   public buscarPorDiccionario(diccionarioId: number): Observable<Articulo[]> {
     return this.http.get<Articulo[]>(this.articuloUrl + diccionarioId + '/articulo');
   }
+
+  public crear(diccionarioId: number, articulo: Articulo): Observable<Articulo> {
+    return this.http.post<Articulo>(this.articuloUrl + diccionarioId + '/articulo', articulo);
+  }
 }

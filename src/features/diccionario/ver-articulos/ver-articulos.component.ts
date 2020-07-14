@@ -28,16 +28,14 @@ export class VerArticulosComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const diccionarioId = Number(params.get('diccionarioId'));
+    const diccionarioId = this.route.snapshot.params.diccionarioId;
 
-      // Pedimos el diccionario
-      this.diccionarioService.buscarPorId(diccionarioId).subscribe(diccionario => {
-        this.diccionario = diccionario;
+    // Pedimos el diccionario
+    this.diccionarioService.buscarPorId(diccionarioId).subscribe(diccionario => {
+      this.diccionario = diccionario;
 
-        this.articuloService.buscarPorDiccionario(diccionarioId).subscribe(articulos => {
-          this.articulos = articulos;
-        });
+      this.articuloService.buscarPorDiccionario(diccionarioId).subscribe(articulos => {
+        this.articulos = articulos;
       });
     });
   }
@@ -50,7 +48,7 @@ export class VerArticulosComponent implements OnInit {
   }
 
   goToCreateArticulo() {
-    this.router.navigate(['agregar-articulo']);
+    this.router.navigate(['agregar-articulo'], {relativeTo: this.route});
   }
 
   goToModifyArticulo() {

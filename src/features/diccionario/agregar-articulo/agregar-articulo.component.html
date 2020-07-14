@@ -1,0 +1,46 @@
+<form [formGroup]="articuloFormGroup" (ngSubmit)="onSubmit()">
+  <!-- 1. Datos generales sobre el articulo -->
+  <h2>1. Ingresar los datos sobre el articulo</h2>
+  <hr>
+
+  <!-- Agregamos los datos del diccionario en un div, para poder obtener el formgroup del diccionario -->
+  <div formGroupName="articulo">
+    <label>
+      Lema:
+      <input type="text" formControlName="lema">
+    </label>
+  </div>
+
+  <!-- 2. Ingresar las acepciones del articulo -->
+  <h2>2. Ingresar las acepciones del articulo</h2>
+  <hr>
+
+  <!-- Iteramos por cada categoria que se va agregando -->
+  <div formArrayName="acepciones" 
+    *ngFor="let acepcion of getAcepciones().controls; index as i;">
+
+    <div [formGroup]="acepcion">
+      <label>
+        Prioridad:
+        <input type="number" formControlName="prioridad">
+      </label>
+
+      <label>
+        Catgoria gramatical:
+        <select formControlName="catGramaticalAsc">
+          <option disabled>Seleccione una categoria</option>
+          <option *ngFor="let catGramatical of catGramaticales" value="{{catGramatical.id}}">{{catGramatical.nombre}}</option>
+        </select>
+      </label>
+
+      <label>
+        Definición:
+        <textarea formControlName="definicion"></textarea>
+      </label>
+    </div>
+  </div>
+
+  <button type="button" (click)="addAcepcion()">Agregar acepcion</button>
+
+  <button type="submit">Crear</button>
+</form>

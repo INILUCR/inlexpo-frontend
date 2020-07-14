@@ -14,4 +14,8 @@ export class AcepcionService {
   public buscarPorArticulo(articuloId: number): Observable<Acepcion[]> {
     return this.http.get<Acepcion[]>(this.acepcionUrl + articuloId + '/acepcion');
   }
+
+  public crear(articuloId: number, catGramaticalId: number, acepcion: Acepcion): Observable<Acepcion> {
+    return this.http.post<Acepcion>(this.acepcionUrl + articuloId + '/acepcion/catGramatical/' + catGramaticalId, acepcion);
+  }
 }

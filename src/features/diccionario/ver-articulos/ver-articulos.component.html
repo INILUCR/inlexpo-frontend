@@ -16,7 +16,7 @@
     <a (click)="goToModifyArticulo()">Editar</a>
 
     <ol>
-      <li *ngFor="let acepcion of acepciones">{{acepcion.definicion}}</li>
+      <li *ngFor="let acepcion of acepciones">{{acepcion.catGramatical.abreviatura}}. {{acepcion.definicion}}</li>
     </ol>
   </div>
 </main>
