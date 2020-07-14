@@ -1,19 +1,23 @@
 <main>
-  <div>
-    <a (click)="goToCreateArticulo()">Agregar</a>
-    <input type="search" placeholder="Buscar artículo" [(ngModel)]="searchText">
+  <div class="busqueda">
+    <p>
+      <button (click)="goToCreateArticulo()">Agregar</button>
+    </p>
+    <p>
+      <input type="search" placeholder="Buscar artículo" [(ngModel)]="searchText">
+    </p>
     <hr>
 
     <!-- Iteramos por los articulos del diccionario -->
-    <div>
+    <div class="articulos">
       <p *ngFor="let articulo of articulos | articulosPipe: searchText; index as i;" (click)="displayAcepciones(i)">{{articulo.lema}}</p>
     </div>
   </div>
 
-  <div *ngIf="articulo">
+  <div *ngIf="articulo" class="articulo">
     <h3>{{articulo.lema}}</h3>
 
-    <a (click)="goToModifyArticulo()">Editar</a>
+    <button (click)="goToModifyArticulo()">Editar</button>
 
     <ol>
       <li *ngFor="let acepcion of acepciones">{{acepcion.catGramatical.abreviatura}}. {{acepcion.definicion}}</li>

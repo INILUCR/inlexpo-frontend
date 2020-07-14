@@ -1,5 +1,5 @@
 <main>
-  <a (click)="goToCreateDiccionario()">Agregar</a>
+  <button type="button" (click)="goToCreateDiccionario()">Agregar</button>
 
   <div *ngFor="let diccionario of diccionarios; index as i" (click)="goToDiccionario(i)">
     <h2>{{diccionario.nombre}}</h2>
@@ -7,5 +7,6 @@
     <p>{{diccionario.tipo}}</p>
     <h3>Descripcion:</h3>
     <p>{{diccionario.descripcion}}</p>
+    <hr>
   </div>
 </main>

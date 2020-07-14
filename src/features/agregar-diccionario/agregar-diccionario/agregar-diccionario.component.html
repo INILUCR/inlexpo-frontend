@@ -1,77 +1,105 @@
 <form [formGroup]="diccionarioFormGroup" (ngSubmit)="onSubmit()">
   <!-- 1. Datos generales sobre el diccionario -->
   <h2>1. Ingresar los datos sobre el diccionario</h2>
-  <hr>
+  
 
   <!-- Agregamos los datos del diccionario en un div, para poder obtener el formgroup del diccionario -->
-  <div formGroupName="diccionario">
-    <label>
-      Nombre:
-      <input type="text" formControlName="nombre">
-    </label>
-  
-    <label>
-      Tipo:
-      <input type="text" formControlName="tipo">
-    </label>
-  
-    <label>
-      Descripcion:
-      <textarea formControlName="descripcion"></textarea>
-    </label>
-  </div>
-
-  <!-- 2. Ingresar las categorias y subategorias del diccionario -->
-  <h2>2. Ingresar las categorias y subcategorias del diccionario</h2>
-  <hr>
-
-  <!-- Iteramos por cada categoria que se va agregando -->
-  <div formArrayName="catGramaticales" 
-    *ngFor="let catGramatical of getCatGramaticales().controls; index as i;">
-    
-    <div [formGroup]="catGramatical">
+  <div formGroupName="diccionario" class="form">
+    <p>
       <label>
         Nombre:
         <input type="text" formControlName="nombre">
       </label>
-  
+    </p>
+
+    <p>
       <label>
-        Abreviatura:
-        <input type="text" formControlName="abreviatura">
+        Tipo:
+        <input type="text" formControlName="tipo">
       </label>
-  
+    </p>
+
+    <p>
       <label>
         Descripcion:
         <textarea formControlName="descripcion"></textarea>
       </label>
+    </p>
+  </div>
+  <hr>
+
+  <!-- 2. Ingresar las categorias y subategorias del diccionario -->
+  <h2>2. Ingresar las categorias y subcategorias del diccionario</h2>
+
+  <!-- Iteramos por cada categoria que se va agregando -->
+  <div formArrayName="catGramaticales" 
+    *ngFor="let catGramatical of getCatGramaticales().controls; index as i;">
+
+    <h3>Categoria gramatical</h3>
+    
+    <div [formGroup]="catGramatical">
+      <p>
+        <label>
+          Nombre:
+          <input type="text" formControlName="nombre">
+        </label>
+      </p>
+  
+      <p>
+        <label>
+          Abreviatura:
+          <input type="text" formControlName="abreviatura">
+        </label>
+      </p>
+      
+      <p>
+        <label>
+          Descripcion:
+          <textarea formControlName="descripcion"></textarea>
+        </label>
+      </p>
 
       <!-- Iteramos por las subcategorias gramaticales -->
       <div formArrayName="subGramaticales"
         *ngFor="let subGramatical of getSubGramaticales(catGramatical).controls; index as i;">
 
+        <h4>Subcategoria gramatical</h4>
+
         <div [formGroup]="subGramatical">
-          <label>
-            Nombre:
-            <input type="text" formControlName="nombre">
-          </label>
+          <p>
+            <label>
+              Nombre:
+              <input type="text" formControlName="nombre">
+            </label>
+          </p>
       
-          <label>
-            Abreviatura:
-            <input type="text" formControlName="abreviatura">
-          </label>
+          <p>
+            <label>
+              Abreviatura:
+              <input type="text" formControlName="abreviatura">
+            </label>
+          </p>
       
-          <label>
-            Descripcion:
-            <textarea formControlName="descripcion"></textarea>
-          </label>
+          <p>
+            <label>
+              Descripcion:
+              <textarea formControlName="descripcion"></textarea>
+            </label>
+          </p>
         </div>
       </div>
 
-      <button type="button" (click)="addSubGramatical(catGramatical)">Agregar subcategoria</button>
+      <p>
+        <button type="button" (click)="addSubGramatical(catGramatical)">Agregar subcategoria</button>
+      </p>
+      
     </div>
   </div>
 
-  <button type="button" (click)="addCatGramatical()">Agregar categoria</button>
+  <p>
+    <button type="button" (click)="addCatGramatical()">Agregar categoria</button>
+  </p>
+  <hr>
 
   <!-- 3. Ingresar la informacion -->
   <h2>3. Ingresar la información que se puede asociar a los artículos del diccionario</h2>
@@ -79,88 +107,120 @@
 
   <div formGroupName="informacion">
     <h3>Información ortográfica</h3>
-    <hr>
 
     <div formArrayName="ortografica"
       *ngFor="let ortografica of getInformacion('ortografica').controls; index as i;">
 
+      <h4>Información</h4>
+
       <div [formGroup]="ortografica">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addInformacion('ortografica')">Agregar ortográfica</button>
+    <p>
+      <button type="button" (click)="addInformacion('ortografica')">Agregar ortográfica</button>
+    </p>
+    <hr>
 
     <h3>Información fonética</h3>
-    <hr>
 
     <div formArrayName="fonetica"
       *ngFor="let fonetica of getInformacion('fonetica').controls; index as i;">
 
+      <h4>Información</h4>
+
       <div [formGroup]="fonetica">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addInformacion('fonetica')">Agregar fonética</button>
+    <p>
+      <button type="button" (click)="addInformacion('fonetica')">Agregar fonética</button>
+    </p>
+    <hr>
 
     <h3>Información morfológica</h3>
-    <hr>
 
     <div formArrayName="morfologica"
       *ngFor="let morfologica of getInformacion('morfologica').controls; index as i;">
 
+      <h4>Información</h4>
+
       <div [formGroup]="morfologica">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addInformacion('morfologica')">Agregar morfológica</button>
+    <p>
+      <button type="button" (click)="addInformacion('morfologica')">Agregar morfológica</button>
+    </p>
+    <hr>
 
     <h3>Información etimológica</h3>
-    <hr>
 
     <div formArrayName="etimologica"
       *ngFor="let etimologica of getInformacion('etimologica').controls; index as i;">
 
+      <h4>Información</h4>
+
       <div [formGroup]="etimologica">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addInformacion('etimologica')">Agregar etimológica</button>
+    <p>
+      <button type="button" (click)="addInformacion('etimologica')">Agregar etimológica</button>
+    </p>
+    <hr>
   </div>
 
   <!-- 4. Ingresar las marcaciones -->
@@ -169,152 +229,210 @@
 
   <div formGroupName="marcacion">
     <h3>Marcación diatópica</h3>
-    <hr>
 
     <div formArrayName="diatopica"
       *ngFor="let diatopica of getMarcacion('diatopica').controls; index as i;">
 
+      <h4>Marcación</h4>
+
       <div [formGroup]="diatopica">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addMarcacion('diatopica')">Agregar diatópica</button>
+    <p>
+      <button type="button" (click)="addMarcacion('diatopica')">Agregar diatópica</button>
+    </p>
+    <hr>
 
     <h3>Marcación diacrónica</h3>
-    <hr>
 
     <div formArrayName="diacronica"
       *ngFor="let diacronica of getMarcacion('diacronica').controls; index as i;">
 
+      <h4>Marcación</h4>
+
       <div [formGroup]="diacronica">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addMarcacion('diacronica')">Agregar diacrónica</button>
+    <p>
+      <button type="button" (click)="addMarcacion('diacronica')">Agregar diacrónica</button>
+    </p>
+    <hr>
 
     <h3>Marcación de frecuencia</h3>
-    <hr>
 
     <div formArrayName="frecuencia"
       *ngFor="let frecuencia of getMarcacion('frecuencia').controls; index as i;">
 
+      <h4>Marcación</h4>
+
       <div [formGroup]="frecuencia">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addMarcacion('frecuencia')">Agregar frecuencia</button>
+    <p>
+      <button type="button" (click)="addMarcacion('frecuencia')">Agregar frecuencia</button>
+    </p>
+    <hr>
 
     <h3>Marcación sociolingüística de valoración social</h3>
-    <hr>
 
     <div formArrayName="valoracionSocial"
       *ngFor="let valoracionSocial of getMarcacion('valoracionSocial').controls; index as i;">
 
+      <h4>Marcación</h4>
+
       <div [formGroup]="valoracionSocial">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addMarcacion('valoracionSocial')">Agregar valoración social</button>
+    <p>
+      <button type="button" (click)="addMarcacion('valoracionSocial')">Agregar valoración social</button>
+    </p>
+    <hr>
 
     <h3>Marcación sociolingüística de estratificación social</h3>
-    <hr>
 
     <div formArrayName="estratificacionSocial"
       *ngFor="let estratificacionSocial of getMarcacion('estratificacionSocial').controls; index as i;">
 
+      <h4>Marcación</h4>
+
       <div [formGroup]="estratificacionSocial">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addMarcacion('estratificacionSocial')">Agregar estratificación social</button>
+    <p>
+      <button type="button" (click)="addMarcacion('estratificacionSocial')">Agregar estratificación social</button>
+    </p>
+    <hr>
 
     <h3>Marcación pragmática</h3>
-    <hr>
 
     <div formArrayName="pragmatica"
       *ngFor="let pragmatica of getMarcacion('pragmatica').controls; index as i;">
 
+      <h4>Marcación</h4>
+
       <div [formGroup]="pragmatica">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addMarcacion('pragmatica')">Agregar pragmática</button>
+    <p>
+      <button type="button" (click)="addMarcacion('pragmatica')">Agregar pragmática</button>
+    </p>
+    <hr>
 
     <h3>Marcación diatécnica</h3>
-    <hr>
 
     <div formArrayName="diatecnica"
       *ngFor="let diatecnica of getMarcacion('diatecnica').controls; index as i;">
 
+      <h4>Marcación</h4>
+
       <div [formGroup]="diatecnica">
-        <label>
-          Nombre:
-          <input type="text" formControlName="nombre">
-        </label>
+        <p>
+          <label>
+            Nombre:
+            <input type="text" formControlName="nombre">
+          </label>
+        </p>
   
-        <label>
-          Descripcion:
-          <textarea formControlName="descripcion"></textarea>
-        </label>
+        <p>
+          <label>
+            Descripcion:
+            <textarea formControlName="descripcion"></textarea>
+          </label>
+        </p>
       </div>
     </div>
 
-    <button type="button" (click)="addMarcacion('diatecnica')">Agregar diatécnica</button>
+    <p>
+      <button type="button" (click)="addMarcacion('diatecnica')">Agregar diatécnica</button>
+    </p>
+    <hr>
   </div>
 
-  <button type="submit">Crear</button>
+  <p>
+    <button type="submit">Crear</button>
+  </p>
 </form>
