@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Diccionario } from 'src/core/models/diccionario';
 import { DiccionarioService } from 'src/core/services/diccionario.service';
@@ -11,14 +11,16 @@ import { SubGramaticalService } from 'src/core/services/sub-gramatical.service';
   templateUrl: './agregar-diccionario.component.html',
   styleUrls: ['./agregar-diccionario.component.sass']
 })
-export class AgregarDiccionarioComponent {
+export class AgregarDiccionarioComponent implements OnInit {
 
   diccionarioFormGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private diccionarioService: DiccionarioService,
               private catGramaticalService: CatGramaticalService,
-              private subGramaticalService: SubGramaticalService) {
+              private subGramaticalService: SubGramaticalService) {}
+
+  ngOnInit() {
     // Creamos un form group que consta de tres partes
     // 1. El diccionario
     // 2. Sus categorias gramaticales y subcategorias

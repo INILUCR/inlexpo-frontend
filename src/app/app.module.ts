@@ -3,20 +3,20 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AgregarDiccionarioModule } from '../features/agregar-diccionario/agregar-diccionario.module';
 import { DiccionarioModule } from 'src/features/diccionario/diccionario.module';
+import { PaginaPrincipalModule } from 'src/features/pagina-principal/pagina-principal.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    PaginaPrincipalModule,
     AgregarDiccionarioModule,
     DiccionarioModule,
   ],
