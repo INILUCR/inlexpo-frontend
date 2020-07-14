@@ -1,26 +1,30 @@
 <main>
-  <div class="busqueda">
-    <p>
-      <button (click)="goToCreateArticulo()">Agregar</button>
-    </p>
-    <p>
-      <input type="search" placeholder="Buscar artículo" [(ngModel)]="searchText">
-    </p>
-    <hr>
+  <h2>{{diccionario.nombre}}</h2>
 
-    <!-- Iteramos por los articulos del diccionario -->
-    <div class="articulos">
-      <p *ngFor="let articulo of articulos | articulosPipe: searchText; index as i;" (click)="displayAcepciones(i)">{{articulo.lema}}</p>
+  <section>
+    <div class="busqueda">
+      <p>
+        <button (click)="goToCreateArticulo()">Agregar</button>
+      </p>
+      <p>
+        <input type="search" placeholder="Buscar artículo" [(ngModel)]="searchText">
+      </p>
+      <hr>
+  
+      <!-- Iteramos por los articulos del diccionario -->
+      <div class="articulos">
+        <p *ngFor="let articulo of articulos | articulosPipe: searchText; index as i;" (click)="displayAcepciones(i)">{{articulo.lema}}</p>
+      </div>
     </div>
-  </div>
-
-  <div *ngIf="articulo" class="articulo">
-    <h3>{{articulo.lema}}</h3>
-
-    <button (click)="goToModifyArticulo()">Editar</button>
-
-    <ol>
-      <li *ngFor="let acepcion of acepciones">{{acepcion.catGramatical.abreviatura}}. {{acepcion.definicion}}</li>
-    </ol>
-  </div>
+  
+    <div *ngIf="articulo" class="articulo">
+      <h3>{{articulo.lema}}</h3>
+  
+      <button (click)="goToModifyArticulo()">Editar</button>
+  
+      <ol>
+        <li *ngFor="let acepcion of acepciones">{{acepcion.catGramatical.abreviatura}}. {{acepcion.definicion}}</li>
+      </ol>
+    </div>
+  </section>
 </main>
