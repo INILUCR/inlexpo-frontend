@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DiccionarioService } from '../../../core/services/diccionario.service';
 import { Diccionario } from '../../../core/models/diccionario';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagina-principal',
@@ -10,16 +11,26 @@ import { Observable } from 'rxjs';
 })
 export class PaginaPrincipalComponent implements OnInit {
 
-  diccionarios: Observable<Diccionario[]>;
+  diccionarios: Diccionario[];
 
-  constructor(private diccionarioService: DiccionarioService) { }
+  constructor(private diccionarioService: DiccionarioService,
+              private router: Router) { }
 
   ngOnInit() {
     this.cargarDiccionarios();
   }
 
   cargarDiccionarios() {
-    this.diccionarios = this.diccionarioService.buscarTodos();
+    this.diccionarioService.buscarTodos().subscribe(diccionarios => {
+      this.diccionarios = diccionarios;
+    });
   }
 
+  goToCreateDiccionario() {
+    this.router.navigate(['agregar-diccionario']);
+  }
+
+  goToDiccionario(i: number) {
+    this.router.navigate(['diccionario/' + (i + 1)]);
+  }
 }

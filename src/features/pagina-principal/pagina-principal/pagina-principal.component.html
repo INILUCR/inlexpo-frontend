@@ -1,8 +1,11 @@
-<div class="titular">
-  <div class="nombre-pagina">Listado de Diccionarios</div>
-  <app-boton [tipo]="'button'" [clase]="'aceptar'" [contenido]="'Agregar Diccionario'" [routerLink]="['/agregar-diccionario']"></app-boton>
-</div>
-<app-resumen-diccionario *ngFor="let diccionario of diccionarios | async"
-                         [diccionario]="diccionario"
-                         [routerLink]="['/diccionario']"
-></app-resumen-diccionario>
+<main>
+  <a (click)="goToCreateDiccionario()">Agregar</a>
+
+  <div *ngFor="let diccionario of diccionarios; index as i" (click)="goToDiccionario(i)">
+    <h2>{{diccionario.nombre}}</h2>
+    <h3>Tipo:</h3>
+    <p>{{diccionario.tipo}}</p>
+    <h3>Descripcion:</h3>
+    <p>{{diccionario.descripcion}}</p>
+  </div>
+</main>
