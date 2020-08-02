@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AcepcionService } from 'src/core/services/acepcion.service';
 import { ArticuloService } from 'src/core/services/articulo.service';
 import { DiccionarioService } from 'src/core/services/diccionario.service';
+import { DiccionarioAPdfService } from 'src/core/services/diccionario-a-pdf.service';
 
 @Component({
   selector: 'app-ver-articulos',
@@ -25,6 +26,7 @@ export class VerArticulosComponent implements OnInit {
               private acepcionService: AcepcionService,
               private articuloService: ArticuloService,
               private diccionarioService: DiccionarioService,
+              private diccionarioPdf: DiccionarioAPdfService,
               private router: Router) { }
 
   ngOnInit() {
@@ -53,5 +55,9 @@ export class VerArticulosComponent implements OnInit {
 
   goToModifyArticulo() {
     this.router.navigate(['modificar-articulo/' + this.articulo.id]);
+  }
+
+  exportarDiccionario() {
+    this.diccionarioPdf.crearPdf(this.diccionario.id, {});
   }
 }
