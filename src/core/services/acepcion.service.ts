@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Acepcion } from '../models/acepcion';
 import { Observable } from 'rxjs';
+import { DatosAcepcion } from '../models/datos-acepcion';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AcepcionService {
     return this.http.get<Acepcion[]>(this.acepcionUrl + articuloId + '/acepcion');
   }
 
-  public crear(articuloId: number, catGramaticalId: number, acepcion: Acepcion): Observable<Acepcion> {
-    return this.http.post<Acepcion>(this.acepcionUrl + articuloId + '/acepcion/catGramatical/' + catGramaticalId, acepcion);
+  public crear(articuloId: number, datosAcepcion: DatosAcepcion): Observable<Acepcion> {
+    return this.http.post<Acepcion>(this.acepcionUrl + articuloId + '/acepcion', datosAcepcion);
   }
 }

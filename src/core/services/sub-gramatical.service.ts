@@ -13,6 +13,10 @@ export class SubGramaticalService {
     this.subGramaticalUrl = 'http://localhost:8080/inlexpo/catGramatical/';
   }
 
+  public buscarPorCatGramatical(catGramaticalId: number): Observable<SubGramatical[]> {
+    return this.http.get<SubGramatical[]>(this.subGramaticalUrl + catGramaticalId + '/subGramatical');
+  }
+
   public crear(catGramaticalId: number, subGramatical: SubGramatical): Observable<SubGramatical> {
     return this.http.post<SubGramatical>(this.subGramaticalUrl + catGramaticalId + '/subGramatical', subGramatical);
   }

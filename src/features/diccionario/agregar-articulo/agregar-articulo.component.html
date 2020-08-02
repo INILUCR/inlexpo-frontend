@@ -7,36 +7,64 @@
     <p>
       <label>
         Lema:
-        <input type="text" formControlName="lema">
+        <input type="text" formControlName="lema" />
       </label>
     </p>
   </div>
-  <hr>
+  <hr />
 
   <!-- 2. Ingresar las acepciones del articulo -->
   <h2>2. Ingresar las acepciones del articulo</h2>
-  <hr>
+  <hr />
 
   <!-- Iteramos por cada categoria que se va agregando -->
-  <div formArrayName="acepciones" 
-    *ngFor="let acepcion of getAcepciones().controls; index as index;">
-
+  <div
+    formArrayName="acepciones"
+    *ngFor="let acepcion of getAcepciones().controls; index as index"
+  >
     <h3>Acepción</h3>
 
     <div [formGroup]="acepcion">
       <p>
         <label>
           Prioridad:
-          <input type="number" formControlName="prioridad">
+          <input type="number" formControlName="prioridad" />
         </label>
       </p>
 
       <p>
         <label>
           Catgoria gramatical:
-          <select formControlName="catGramaticalAsc">
+          <select
+            formControlName="catGramaticalId"
+            (change)="actualizarListDeSubGrmAMostrar(index, $event)"
+          >
             <option disabled>Seleccione una categoria</option>
-            <option *ngFor="let catGramatical of catGramaticales" value="{{catGramatical.id}}">{{catGramatical.nombre}}</option>
+            <option
+              *ngFor="let catGramatical of catGramaticales"
+              value="{{ catGramatical.id }}"
+            >
+              {{ catGramatical.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p *ngIf="listaDeSubGrmAMostrar[index] !== undefined">
+        <label>
+          Subcatgoria gramatical:
+          <select formControlName="subGramaticalId">
+            <option disabled>Seleccione una subcategoria</option>
+            <option
+              *ngFor="
+                let subGramatical of listaDeListasDeSubGrm[
+                  listaDeSubGrmAMostrar[index]
+                ]
+              "
+              value="{{ subGramatical.id }}"
+            >
+              {{ subGramatical.nombre }}
+            </option>
           </select>
         </label>
       </p>
@@ -55,7 +83,7 @@
   <p>
     <button type="button" (click)="addAcepcion()">Agregar acepcion</button>
   </p>
-  <hr>
+  <hr />
 
   <p>
     <button type="submit">Crear</button>
