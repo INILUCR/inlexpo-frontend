@@ -1,4 +1,4 @@
-export class MarDiatopica {
+export class InformacionMarcacion {
   id: number;
   nombre: string;
   descripcion: string;
