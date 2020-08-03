@@ -1,21 +1,20 @@
 <form [formGroup]="diccionarioFormGroup" (ngSubmit)="onSubmit()">
   <!-- 1. Datos generales sobre el diccionario -->
   <h2>1. Ingresar los datos sobre el diccionario</h2>
-  
 
   <!-- Agregamos los datos del diccionario en un div, para poder obtener el formgroup del diccionario -->
   <div formGroupName="diccionario" class="form">
     <p>
       <label>
         Nombre:
-        <input type="text" formControlName="nombre">
+        <input type="text" formControlName="nombre" />
       </label>
     </p>
 
     <p>
       <label>
         Tipo:
-        <input type="text" formControlName="tipo">
+        <input type="text" formControlName="tipo" />
       </label>
     </p>
 
@@ -26,32 +25,33 @@
       </label>
     </p>
   </div>
-  <hr>
+  <hr />
 
   <!-- 2. Ingresar las categorias y subategorias del diccionario -->
   <h2>2. Ingresar las categorias y subcategorias del diccionario</h2>
 
   <!-- Iteramos por cada categoria que se va agregando -->
-  <div formArrayName="catGramaticales" 
-    *ngFor="let catGramatical of getCatGramaticales().controls; index as index;">
-
+  <div
+    formArrayName="catGramaticales"
+    *ngFor="let catGramatical of getCatGramaticales().controls; index as index"
+  >
     <h3>Categoria gramatical</h3>
-    
+
     <div [formGroup]="catGramatical">
       <p>
         <label>
           Nombre:
-          <input type="text" formControlName="nombre">
+          <input type="text" formControlName="nombre" />
         </label>
       </p>
-  
+
       <p>
         <label>
           Abreviatura:
-          <input type="text" formControlName="abreviatura">
+          <input type="text" formControlName="abreviatura" />
         </label>
       </p>
-      
+
       <p>
         <label>
           Descripcion:
@@ -62,69 +62,87 @@
       </p>
 
       <!-- Iteramos por las subcategorias gramaticales -->
-      <div formArrayName="subGramaticales"
-        *ngFor="let subGramatical of getSubGramaticales(catGramatical).controls; index as index2;">
-
+      <div
+        formArrayName="subGramaticales"
+        *ngFor="
+          let subGramatical of getSubGramaticales(catGramatical).controls;
+          index as index2
+        "
+      >
         <h4>Subcategoria gramatical</h4>
 
         <div [formGroup]="subGramatical">
           <p>
             <label>
               Nombre:
-              <input type="text" formControlName="nombre">
+              <input type="text" formControlName="nombre" />
             </label>
           </p>
-      
+
           <p>
             <label>
               Abreviatura:
-              <input type="text" formControlName="abreviatura">
+              <input type="text" formControlName="abreviatura" />
             </label>
           </p>
-      
+
           <p>
             <label>
               Descripcion:
               <textarea formControlName="descripcion"></textarea>
             </label>
 
-            <a type="button" (click)="deleteSubGramatical(catGramatical, index2)">Eliminar</a>
+            <a
+              type="button"
+              (click)="deleteSubGramatical(catGramatical, index2)"
+              >Eliminar</a
+            >
           </p>
         </div>
       </div>
 
       <p>
-        <button type="button" (click)="addSubGramatical(catGramatical)">Agregar subcategoria</button>
+        <button type="button" (click)="addSubGramatical(catGramatical)">
+          Agregar subcategoria
+        </button>
       </p>
-      
     </div>
   </div>
 
   <p>
-    <button type="button" (click)="addCatGramatical()">Agregar categoria</button>
+    <button type="button" (click)="addCatGramatical()">
+      Agregar categoria
+    </button>
   </p>
-  <hr>
+  <hr />
 
   <!-- 3. Ingresar la informacion -->
-  <h2>3. Ingresar la información que se puede asociar a los artículos del diccionario</h2>
-  <hr>
+  <h2>
+    3. Ingresar la información que se puede asociar a los artículos del
+    diccionario
+  </h2>
+  <hr />
 
   <div formGroupName="informacion">
     <h3>Información ortográfica</h3>
 
-    <div formArrayName="ortografica"
-      *ngFor="let ortografica of getInformacion('ortografica').controls; index as i;">
-
+    <div
+      formArrayName="ortografica"
+      *ngFor="
+        let ortografica of getInformacion('ortografica').controls;
+        index as i
+      "
+    >
       <h4>Información</h4>
 
       <div [formGroup]="ortografica">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -135,25 +153,28 @@
     </div>
 
     <p>
-      <button type="button" (click)="addInformacion('ortografica')">Agregar ortográfica</button>
+      <button type="button" (click)="addInformacion('ortografica')">
+        Agregar ortográfica
+      </button>
     </p>
-    <hr>
+    <hr />
 
     <h3>Información fonética</h3>
 
-    <div formArrayName="fonetica"
-      *ngFor="let fonetica of getInformacion('fonetica').controls; index as i;">
-
+    <div
+      formArrayName="fonetica"
+      *ngFor="let fonetica of getInformacion('fonetica').controls; index as i"
+    >
       <h4>Información</h4>
 
       <div [formGroup]="fonetica">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -164,25 +185,31 @@
     </div>
 
     <p>
-      <button type="button" (click)="addInformacion('fonetica')">Agregar fonética</button>
+      <button type="button" (click)="addInformacion('fonetica')">
+        Agregar fonética
+      </button>
     </p>
-    <hr>
+    <hr />
 
     <h3>Información morfológica</h3>
 
-    <div formArrayName="morfologica"
-      *ngFor="let morfologica of getInformacion('morfologica').controls; index as i;">
-
+    <div
+      formArrayName="morfologica"
+      *ngFor="
+        let morfologica of getInformacion('morfologica').controls;
+        index as i
+      "
+    >
       <h4>Información</h4>
 
       <div [formGroup]="morfologica">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -193,25 +220,31 @@
     </div>
 
     <p>
-      <button type="button" (click)="addInformacion('morfologica')">Agregar morfológica</button>
+      <button type="button" (click)="addInformacion('morfologica')">
+        Agregar morfológica
+      </button>
     </p>
-    <hr>
+    <hr />
 
     <h3>Información etimológica</h3>
 
-    <div formArrayName="etimologica"
-      *ngFor="let etimologica of getInformacion('etimologica').controls; index as i;">
-
+    <div
+      formArrayName="etimologica"
+      *ngFor="
+        let etimologica of getInformacion('etimologica').controls;
+        index as i
+      "
+    >
       <h4>Información</h4>
 
       <div [formGroup]="etimologica">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -222,31 +255,37 @@
     </div>
 
     <p>
-      <button type="button" (click)="addInformacion('etimologica')">Agregar etimológica</button>
+      <button type="button" (click)="addInformacion('etimologica')">
+        Agregar etimológica
+      </button>
     </p>
-    <hr>
+    <hr />
   </div>
 
   <!-- 4. Ingresar las marcaciones -->
-  <h2>4. Ingresar las marcaciones que se puede asociar a los artículos del diccionario</h2>
-  <hr>
+  <h2>
+    4. Ingresar las marcaciones que se puede asociar a los artículos del
+    diccionario
+  </h2>
+  <hr />
 
   <div formGroupName="marcacion">
     <h3>Marcación diatópica</h3>
 
-    <div formArrayName="diatopica"
-      *ngFor="let diatopica of getMarcacion('diatopica').controls; index as i;">
-
+    <div
+      formArrayName="diatopica"
+      *ngFor="let diatopica of getMarcacion('diatopica').controls; index as i"
+    >
       <h4>Marcación</h4>
 
       <div [formGroup]="diatopica">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -257,25 +296,28 @@
     </div>
 
     <p>
-      <button type="button" (click)="addMarcacion('diatopica')">Agregar diatópica</button>
+      <button type="button" (click)="addMarcacion('diatopica')">
+        Agregar diatópica
+      </button>
     </p>
-    <hr>
+    <hr />
 
     <h3>Marcación diacrónica</h3>
 
-    <div formArrayName="diacronica"
-      *ngFor="let diacronica of getMarcacion('diacronica').controls; index as i;">
-
+    <div
+      formArrayName="diacronica"
+      *ngFor="let diacronica of getMarcacion('diacronica').controls; index as i"
+    >
       <h4>Marcación</h4>
 
       <div [formGroup]="diacronica">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -286,25 +328,28 @@
     </div>
 
     <p>
-      <button type="button" (click)="addMarcacion('diacronica')">Agregar diacrónica</button>
+      <button type="button" (click)="addMarcacion('diacronica')">
+        Agregar diacrónica
+      </button>
     </p>
-    <hr>
+    <hr />
 
     <h3>Marcación de frecuencia</h3>
 
-    <div formArrayName="frecuencia"
-      *ngFor="let frecuencia of getMarcacion('frecuencia').controls; index as i;">
-
+    <div
+      formArrayName="frecuencia"
+      *ngFor="let frecuencia of getMarcacion('frecuencia').controls; index as i"
+    >
       <h4>Marcación</h4>
 
       <div [formGroup]="frecuencia">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -315,25 +360,31 @@
     </div>
 
     <p>
-      <button type="button" (click)="addMarcacion('frecuencia')">Agregar frecuencia</button>
+      <button type="button" (click)="addMarcacion('frecuencia')">
+        Agregar frecuencia
+      </button>
     </p>
-    <hr>
+    <hr />
 
     <h3>Marcación sociolingüística de valoración social</h3>
 
-    <div formArrayName="valoracionSocial"
-      *ngFor="let valoracionSocial of getMarcacion('valoracionSocial').controls; index as i;">
-
+    <div
+      formArrayName="valoracionSocial"
+      *ngFor="
+        let valoracionSocial of getMarcacion('valoracionSocial').controls;
+        index as i
+      "
+    >
       <h4>Marcación</h4>
 
       <div [formGroup]="valoracionSocial">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -344,25 +395,32 @@
     </div>
 
     <p>
-      <button type="button" (click)="addMarcacion('valoracionSocial')">Agregar valoración social</button>
+      <button type="button" (click)="addMarcacion('valoracionSocial')">
+        Agregar valoración social
+      </button>
     </p>
-    <hr>
+    <hr />
 
     <h3>Marcación sociolingüística de estratificación social</h3>
 
-    <div formArrayName="estratificacionSocial"
-      *ngFor="let estratificacionSocial of getMarcacion('estratificacionSocial').controls; index as i;">
-
+    <div
+      formArrayName="estratificacionSocial"
+      *ngFor="
+        let estratificacionSocial of getMarcacion('estratificacionSocial')
+          .controls;
+        index as i
+      "
+    >
       <h4>Marcación</h4>
 
       <div [formGroup]="estratificacionSocial">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -373,25 +431,28 @@
     </div>
 
     <p>
-      <button type="button" (click)="addMarcacion('estratificacionSocial')">Agregar estratificación social</button>
+      <button type="button" (click)="addMarcacion('estratificacionSocial')">
+        Agregar estratificación social
+      </button>
     </p>
-    <hr>
+    <hr />
 
     <h3>Marcación pragmática</h3>
 
-    <div formArrayName="pragmatica"
-      *ngFor="let pragmatica of getMarcacion('pragmatica').controls; index as i;">
-
+    <div
+      formArrayName="pragmatica"
+      *ngFor="let pragmatica of getMarcacion('pragmatica').controls; index as i"
+    >
       <h4>Marcación</h4>
 
       <div [formGroup]="pragmatica">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -402,25 +463,28 @@
     </div>
 
     <p>
-      <button type="button" (click)="addMarcacion('pragmatica')">Agregar pragmática</button>
+      <button type="button" (click)="addMarcacion('pragmatica')">
+        Agregar pragmática
+      </button>
     </p>
-    <hr>
+    <hr />
 
     <h3>Marcación diatécnica</h3>
 
-    <div formArrayName="diatecnica"
-      *ngFor="let diatecnica of getMarcacion('diatecnica').controls; index as i;">
-
+    <div
+      formArrayName="diatecnica"
+      *ngFor="let diatecnica of getMarcacion('diatecnica').controls; index as i"
+    >
       <h4>Marcación</h4>
 
       <div [formGroup]="diatecnica">
         <p>
           <label>
             Nombre:
-            <input type="text" formControlName="nombre">
+            <input type="text" formControlName="nombre" />
           </label>
         </p>
-  
+
         <p>
           <label>
             Descripcion:
@@ -431,9 +495,11 @@
     </div>
 
     <p>
-      <button type="button" (click)="addMarcacion('diatecnica')">Agregar diatécnica</button>
+      <button type="button" (click)="addMarcacion('diatecnica')">
+        Agregar diatécnica
+      </button>
     </p>
-    <hr>
+    <hr />
   </div>
 
   <p>
