@@ -9,6 +9,7 @@ import { CatGramatical } from "src/core/models/cat-gramatical";
 import { DatosAcepcion } from "src/core/models/datos-acepcion";
 import { SubGramatical } from "src/core/models/sub-gramatical";
 import { SubGramaticalService } from "src/core/services/sub-gramatical.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-agregar-articulo",
@@ -18,7 +19,7 @@ import { SubGramaticalService } from "src/core/services/sub-gramatical.service";
 export class AgregarArticuloComponent implements OnInit {
   articuloFormGroup: FormGroup;
 
-  catGramaticales: CatGramatical[];
+  catGramaticales: Observable<CatGramatical[]>;
   listaDeListasDeSubGrm = [];
 
   listaDeSubGrmAMostrar: number[];
@@ -49,19 +50,19 @@ export class AgregarArticuloComponent implements OnInit {
 
     const diccionarioId = this.route.snapshot.params.diccionarioId;
 
-    this.catGramaticalService
-      .buscarPorDiccionario(diccionarioId)
-      .subscribe((catGramaticales) => {
-        this.catGramaticales = catGramaticales;
+    this.catGramaticales = this.catGramaticalService.buscarPorDiccionario(
+      diccionarioId
+    );
 
-        for (let i = 0; i < this.catGramaticales.length; ++i) {
-          this.subGramaticalService
-            .buscarPorCatGramatical(this.catGramaticales[i].id)
-            .subscribe((subGramaticales) => {
-              this.listaDeListasDeSubGrm[i] = subGramaticales;
-            });
-        }
-      });
+    this.catGramaticales.subscribe((catGramaticales) => {
+      for (let i = 0; i < catGramaticales.length; ++i) {
+        this.subGramaticalService
+          .buscarPorCatGramatical(catGramaticales[i].id)
+          .subscribe((subGramaticales) => {
+            this.listaDeListasDeSubGrm[i] = subGramaticales;
+          });
+      }
+    });
   }
 
   /* ------ Metodos para administrar las acepciones ------ */

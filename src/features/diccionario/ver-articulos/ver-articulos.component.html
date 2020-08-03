@@ -1,5 +1,5 @@
 <main>
-  <h2>{{diccionario.nombre}}</h2>
+  <h2 *ngIf="diccionario | async as diccionario">{{ diccionario.nombre }}</h2>
   <button (click)="exportarDiccionario()">Exportar diccionario</button>
 
   <section>
@@ -8,23 +8,34 @@
         <button (click)="goToCreateArticulo()">Agregar</button>
       </p>
       <p>
-        <input type="search" placeholder="Buscar artículo" [(ngModel)]="searchText">
+        <input
+          type="search"
+          placeholder="Buscar artículo"
+          [(ngModel)]="searchText"
+        />
       </p>
-      <hr>
-  
+      <hr />
+
       <!-- Iteramos por los articulos del diccionario -->
       <div class="articulos">
-        <p *ngFor="let articulo of articulos | articulosPipe: searchText; index as i;" (click)="displayAcepciones(i)">{{articulo.lema}}</p>
+        <p
+          *ngFor="let articulo of articulos | async | articulosPipe: searchText"
+          (click)="displayAcepciones(articulo)"
+        >
+          {{ articulo.lema }}
+        </p>
       </div>
     </div>
-  
+
     <div *ngIf="articulo" class="articulo">
-      <h3>{{articulo.lema}}</h3>
-  
+      <h3>{{ articulo.lema }}</h3>
+
       <button (click)="goToModifyArticulo()">Editar</button>
-  
+
       <ol>
-        <li *ngFor="let acepcion of acepciones">{{acepcion.catGramatical.abreviatura}}. {{acepcion.definicion}}</li>
+        <li *ngFor="let acepcion of acepciones">
+          {{ acepcion.catGramatical.abreviatura }}. {{ acepcion.definicion }}
+        </li>
       </ol>
     </div>
   </section>

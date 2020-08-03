@@ -41,7 +41,7 @@
           >
             <option disabled>Seleccione una categoria</option>
             <option
-              *ngFor="let catGramatical of catGramaticales"
+              *ngFor="let catGramatical of catGramaticales | async"
               value="{{ catGramatical.id }}"
             >
               {{ catGramatical.nombre }}
