@@ -6,28 +6,28 @@ import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class MarDiatopicaService {
-  private marDiatopicaUrl: string;
+export class InfEtimologicaService {
+  private infEtimologicaUrl: string;
 
   constructor(private http: HttpClient) {
-    this.marDiatopicaUrl = "http://localhost:8080/inlexpo/diccionario/";
+    this.infEtimologicaUrl = "http://localhost:8080/inlexpo/diccionario/";
   }
 
   public buscarPorDiccionario(
     diccionarioId: number
   ): Observable<InformacionMarcacion[]> {
     return this.http.get<InformacionMarcacion[]>(
-      this.marDiatopicaUrl + diccionarioId + "/marDiatopica"
+      this.infEtimologicaUrl + diccionarioId + "/infEtimologica"
     );
   }
 
   public crear(
     diccionarioId: number,
-    marDiatopica: InformacionMarcacion
+    infEtimologica: InformacionMarcacion
   ): Observable<InformacionMarcacion> {
     return this.http.post<InformacionMarcacion>(
-      this.marDiatopicaUrl + diccionarioId + "/marDiatopica",
-      marDiatopica
+      this.infEtimologicaUrl + diccionarioId + "/infEtimologica",
+      infEtimologica
     );
   }
 }

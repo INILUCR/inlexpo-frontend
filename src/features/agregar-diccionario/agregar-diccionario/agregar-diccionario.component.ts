@@ -14,8 +14,16 @@ import { SubGramaticalService } from "src/core/services/sub-gramatical.service";
 import { Router } from "@angular/router";
 import { InfOrtograficaService } from "src/core/services/inf-ortografica.service";
 import { MarDiatopicaService } from "src/core/services/mar-diatopica.service";
-import { InfOrtografica } from "src/core/models/inf-ortografica";
-import { MarDiatopica } from "src/core/models/mar-diatopica";
+import { InformacionMarcacion } from "src/core/models/informacion-o-marcacion";
+import { InfEtimologicaService } from "src/core/services/inf-etimologica.service";
+import { InfFoneticaService } from "src/core/services/inf-fonetica.service";
+import { InfMorfologicaService } from "src/core/services/inf-morfologica.service";
+import { MarDiacronicaService } from "src/core/services/mar-diacronica.service";
+import { MarDiatecnicaService } from "src/core/services/mar-diatecnica.service";
+import { MarEstratificacionSocialService } from "src/core/services/mar-estratificacion-social.service";
+import { MarFrecuenciaService } from "src/core/services/mar-frecuencia.service";
+import { MarPragmaticaService } from "src/core/services/mar-pragmatica.service";
+import { MarValoracionSocialService } from "src/core/services/mar-valoracion-social.service";
 
 @Component({
   selector: "app-agregar-diccionario",
@@ -30,8 +38,17 @@ export class AgregarDiccionarioComponent implements OnInit {
     private diccionarioService: DiccionarioService,
     private catGramaticalService: CatGramaticalService,
     private subGramaticalService: SubGramaticalService,
+    private infEtimologicaService: InfEtimologicaService,
+    private infFoneticaService: InfFoneticaService,
+    private infMorfologicaService: InfMorfologicaService,
     private infOrtograficaService: InfOrtograficaService,
+    private marDiacronicaService: MarDiacronicaService,
+    private marDiatecnicaService: MarDiatecnicaService,
     private marDiatopicaService: MarDiatopicaService,
+    private marEstratificacionSocialService: MarEstratificacionSocialService,
+    private marFrecuenciaService: MarFrecuenciaService,
+    private marPragmaticaService: MarPragmaticaService,
+    private marValoracionSocialService: MarValoracionSocialService,
     private router: Router
   ) {}
 
@@ -183,9 +200,44 @@ export class AgregarDiccionarioComponent implements OnInit {
       });
 
       // Agregamos la informacion a la base de datos
+
+      // Etimologica
+      const infEtimologicas = this.diccionarioFormGroup.value.informacion[
+        "etimologica"
+      ] as InformacionMarcacion[];
+
+      infEtimologicas.forEach((infEtimologica) => {
+        this.infEtimologicaService
+          .crear(diccionarioNuevo.id, infEtimologica)
+          .subscribe();
+      });
+
+      // Fonetica
+      const infFoneticas = this.diccionarioFormGroup.value.informacion[
+        "fonetica"
+      ] as InformacionMarcacion[];
+
+      infFoneticas.forEach((infFonetica) => {
+        this.infFoneticaService
+          .crear(diccionarioNuevo.id, infFonetica)
+          .subscribe();
+      });
+
+      // Morfologica
+      const infMorfologicas = this.diccionarioFormGroup.value.informacion[
+        "morfologica"
+      ] as InformacionMarcacion[];
+
+      infMorfologicas.forEach((infMorfologica) => {
+        this.infMorfologicaService
+          .crear(diccionarioNuevo.id, infMorfologica)
+          .subscribe();
+      });
+
+      // Ortografica
       const infOrtograficas = this.diccionarioFormGroup.value.informacion[
         "ortografica"
-      ] as InfOrtografica[];
+      ] as InformacionMarcacion[];
 
       infOrtograficas.forEach((infOrtografica) => {
         this.infOrtograficaService
@@ -194,13 +246,80 @@ export class AgregarDiccionarioComponent implements OnInit {
       });
 
       // Agregamos la marcacion a la base de datos
+
+      // Diacronica
+      const marDiacronicas = this.diccionarioFormGroup.value.marcacion[
+        "diacronica"
+      ] as InformacionMarcacion[];
+
+      marDiacronicas.forEach((marDiacronica) => {
+        this.marDiacronicaService
+          .crear(diccionarioNuevo.id, marDiacronica)
+          .subscribe();
+      });
+
+      // Diatecnica
+      const marDiatecnicas = this.diccionarioFormGroup.value.marcacion[
+        "diatecnica"
+      ] as InformacionMarcacion[];
+
+      marDiatecnicas.forEach((marDiatecnica) => {
+        this.marDiatecnicaService
+          .crear(diccionarioNuevo.id, marDiatecnica)
+          .subscribe();
+      });
+
+      // Diatopica
       const marDiatopicas = this.diccionarioFormGroup.value.marcacion[
         "diatopica"
-      ] as MarDiatopica[];
+      ] as InformacionMarcacion[];
 
       marDiatopicas.forEach((marDiatopica) => {
         this.marDiatopicaService
           .crear(diccionarioNuevo.id, marDiatopica)
+          .subscribe();
+      });
+
+      // Estratificacion Social
+      const marEstratificacionSociales = this.diccionarioFormGroup.value
+        .marcacion["estratificacionSocial"] as InformacionMarcacion[];
+
+      marEstratificacionSociales.forEach((marEstratificacionSocial) => {
+        this.marEstratificacionSocialService
+          .crear(diccionarioNuevo.id, marEstratificacionSocial)
+          .subscribe();
+      });
+
+      // Frecuencia
+      const marFrecuencias = this.diccionarioFormGroup.value.marcacion[
+        "frecuencia"
+      ] as InformacionMarcacion[];
+
+      marFrecuencias.forEach((marFrecuencia) => {
+        this.marFrecuenciaService
+          .crear(diccionarioNuevo.id, marFrecuencia)
+          .subscribe();
+      });
+
+      // Pragmatica
+      const marPragmaticas = this.diccionarioFormGroup.value.marcacion[
+        "pragmatica"
+      ] as InformacionMarcacion[];
+
+      marPragmaticas.forEach((marPragmatica) => {
+        this.marPragmaticaService
+          .crear(diccionarioNuevo.id, marPragmatica)
+          .subscribe();
+      });
+
+      // Valoracion Social
+      const marValoracionSociales = this.diccionarioFormGroup.value.marcacion[
+        "valoracionSocial"
+      ] as InformacionMarcacion[];
+
+      marValoracionSociales.forEach((marValoracionSocial) => {
+        this.marValoracionSocialService
+          .crear(diccionarioNuevo.id, marValoracionSocial)
           .subscribe();
       });
 

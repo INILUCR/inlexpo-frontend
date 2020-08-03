@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { InfOrtografica } from "../models/inf-ortografica";
+import { InformacionMarcacion } from "../models/informacion-o-marcacion";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -15,17 +15,17 @@ export class InfOrtograficaService {
 
   public buscarPorDiccionario(
     diccionarioId: number
-  ): Observable<InfOrtografica[]> {
-    return this.http.get<InfOrtografica[]>(
+  ): Observable<InformacionMarcacion[]> {
+    return this.http.get<InformacionMarcacion[]>(
       this.infOrtograficaUrl + diccionarioId + "/infOrtografica"
     );
   }
 
   public crear(
     diccionarioId: number,
-    infOrtografica: InfOrtografica
-  ): Observable<InfOrtografica> {
-    return this.http.post<InfOrtografica>(
+    infOrtografica: InformacionMarcacion
+  ): Observable<InformacionMarcacion> {
+    return this.http.post<InformacionMarcacion>(
       this.infOrtograficaUrl + diccionarioId + "/infOrtografica",
       infOrtografica
     );

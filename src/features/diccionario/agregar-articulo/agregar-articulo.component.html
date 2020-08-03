@@ -71,6 +71,176 @@
 
       <p>
         <label>
+          Información Etimológica:
+          <select formControlName="infEtimologicaId">
+            <option disabled>Seleccione una información etimológica</option>
+            <option
+              *ngFor="let infEtimologica of infEtimologicas | async"
+              value="{{ infEtimologica.id }}"
+            >
+              {{ infEtimologica.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Información Fonética:
+          <select formControlName="infFoneticaId">
+            <option disabled>Seleccione una información fonética</option>
+            <option
+              *ngFor="let infFonetica of infFoneticas | async"
+              value="{{ infFonetica.id }}"
+            >
+              {{ infFonetica.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Información Morfológica:
+          <select formControlName="infMorfologicaId">
+            <option disabled>Seleccione una información morfológica</option>
+            <option
+              *ngFor="let infMorfologica of infMorfologicas | async"
+              value="{{ infMorfologica.id }}"
+            >
+              {{ infMorfologica.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Información Ortográfica:
+          <select formControlName="infOrtograficaId">
+            <option disabled>Seleccione una información ortográfica</option>
+            <option
+              *ngFor="let infOrtografica of infOrtograficas | async"
+              value="{{ infOrtografica.id }}"
+            >
+              {{ infOrtografica.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Marcación Diacrónica:
+          <select formControlName="marDiacronicaId">
+            <option disabled>Seleccione una marcación diacrónica</option>
+            <option
+              *ngFor="let marDiacronica of marDiacronicas | async"
+              value="{{ marDiacronica.id }}"
+            >
+              {{ marDiacronica.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Marcación Diatécnica:
+          <select formControlName="marDiatecnicaId">
+            <option disabled>Seleccione una marcación diatécnica</option>
+            <option
+              *ngFor="let marDiatecnica of marDiatecnicas | async"
+              value="{{ marDiatecnica.id }}"
+            >
+              {{ marDiatecnica.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Marcación Diatópica:
+          <select formControlName="marDiatopicaId">
+            <option disabled>Seleccione una marcación diatópica</option>
+            <option
+              *ngFor="let marDiatopica of marDiatopicas | async"
+              value="{{ marDiatopica.id }}"
+            >
+              {{ marDiatopica.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Marcación Estratificación Social:
+          <select formControlName="marEstratificacionSocialId">
+            <option disabled
+              >Seleccione una marcación estratificación social</option
+            >
+            <option
+              *ngFor="
+                let marEstratificacionSocial of marEstratificacionSociales
+                  | async
+              "
+              value="{{ marEstratificacionSocial.id }}"
+            >
+              {{ marEstratificacionSocial.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Marcación Frecuencia:
+          <select formControlName="marFrecuenciaId">
+            <option disabled>Seleccione una marcación frecuencia</option>
+            <option
+              *ngFor="let marFrecuencia of marFrecuencias | async"
+              value="{{ marFrecuencia.id }}"
+            >
+              {{ marFrecuencia.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Marcación Pragmática:
+          <select formControlName="marPragmaticaId">
+            <option disabled>Seleccione una marcación ragmática</option>
+            <option
+              *ngFor="let marPragmatica of marPragmaticas | async"
+              value="{{ marPragmatica.id }}"
+            >
+              {{ marPragmatica.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Marcación Valoración Social:
+          <select formControlName="marValoracionSocialId">
+            <option disabled>Seleccione una marcación valoración social</option>
+            <option
+              *ngFor="let marValoracionSocial of marValoracionSociales | async"
+              value="{{ marValoracionSocial.id }}"
+            >
+              {{ marValoracionSocial.nombre }}
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
           Definición:
           <textarea formControlName="definicion"></textarea>
         </label>
