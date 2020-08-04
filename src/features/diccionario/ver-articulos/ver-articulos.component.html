@@ -34,7 +34,59 @@
 
       <ol>
         <li *ngFor="let acepcion of acepciones">
-          {{ acepcion.catGramatical.abreviatura }}. {{ acepcion.definicion }}
+          <span *ngIf="acepcion.catGramatical">
+            {{ acepcion.catGramatical.abreviatura }}.
+          </span>
+
+          <span *ngIf="acepcion.subGramatical">
+            {{ acepcion.subGramatical.abreviatura }}.
+          </span>
+
+          <span *ngIf="acepcion.infEtimologica">
+            {{ acepcion.infEtimologica.nombre }}.
+          </span>
+
+          <span *ngIf="acepcion.infFonetica">
+            {{ acepcion.infFonetica.nombre }}.
+          </span>
+
+          <span *ngIf="acepcion.infMorfologica">
+            {{ acepcion.infMorfologica.nombre }}.
+          </span>
+
+          <span *ngIf="acepcion.infOrtografica">
+            {{ acepcion.infOrtografica.nombre }}.
+          </span>
+
+          <span *ngIf="acepcion.marDiacronica">
+            {{ acepcion.marDiacronica.nombre }}.
+          </span>
+
+          <span *ngIf="acepcion.marDiatecnica">
+            {{ acepcion.marDiatecnica.nombre }}.
+          </span>
+
+          <span *ngIf="acepcion.marDiatopica">
+            {{ acepcion.marDiatopica.nombre }}.
+          </span>
+
+          <span *ngIf="acepcion.marEstratificacionSocial">
+            {{ acepcion.marEstratificacionSocial.nombre }}.
+          </span>
+
+          <span *ngIf="acepcion.marFrecuencia">
+            {{ acepcion.marFrecuencia.nombre }}.
+          </span>
+
+          <span *ngIf="acepcion.marPragmatica">
+            {{ acepcion.marPragmatica.nombre }}.
+          </span>
+
+          <span *ngIf="acepcion.marValoracionSocial">
+            {{ acepcion.marValoracionSocial.nombre }}.
+          </span>
+
+          {{ acepcion.definicion }}
         </li>
       </ol>
     </div>

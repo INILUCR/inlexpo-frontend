@@ -199,8 +199,6 @@ export class AgregarArticuloComponent implements OnInit {
         const acepciones = this.articuloFormGroup.value
           .acepciones as DatosAcepcion[];
 
-        console.log(acepciones);
-
         acepciones.forEach((acepcion) => {
           this.acepcionService
             .crear(articuloNuevo.id, acepcion)
