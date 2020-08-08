@@ -7,19 +7,106 @@
       <p>
         <button (click)="goToCreateArticulo()">Agregar</button>
       </p>
+
       <p>
+        <label for="inicio">Comienza por:</label>
         <input
+          id="inicio"
           type="search"
           placeholder="Buscar artículo"
-          [(ngModel)]="searchText"
+          [(ngModel)]="inicio"
         />
+
+        <input
+          type="radio"
+          id="inicioY"
+          name="inicio"
+          value="y"
+          [(ngModel)]="inicioYO"
+        />
+        <label for="inicioY">Y</label>
+
+        <input
+          type="radio"
+          id="inicioO"
+          name="inicio"
+          value="o"
+          [(ngModel)]="inicioYO"
+        />
+        <label for="inicioO">O</label>
+      </p>
+
+      <p>
+        <label for="contiene">Contiene:</label>
+        <input
+          id="contiene"
+          type="search"
+          placeholder="Buscar artículo"
+          [(ngModel)]="contiene"
+        />
+
+        <input
+          type="radio"
+          id="contieneY"
+          name="contiene"
+          value="y"
+          [(ngModel)]="contieneYO"
+        />
+        <label for="contieneY">Y</label>
+
+        <input
+          type="radio"
+          id="contieneO"
+          name="contiene"
+          value="o"
+          [(ngModel)]="contieneYO"
+        />
+        <label for="contieneO">O</label>
+      </p>
+
+      <p>
+        <label for="termina">Termina por:</label>
+        <input
+          id="termina"
+          type="search"
+          placeholder="Buscar artículo"
+          [(ngModel)]="termina"
+        />
+
+        <input
+          type="radio"
+          id="terminaY"
+          name="termina"
+          value="y"
+          [(ngModel)]="terminaYO"
+        />
+        <label for="terminaY">Y</label>
+
+        <input
+          type="radio"
+          id="terminaO"
+          name="termina"
+          value="o"
+          [(ngModel)]="terminaYO"
+        />
+        <label for="terminaO">O</label>
       </p>
       <hr />
 
       <!-- Iteramos por los articulos del diccionario -->
       <div class="articulos">
         <p
-          *ngFor="let articulo of articulos | async | articulosPipe: searchText"
+          *ngFor="
+            let articulo of articulos
+              | async
+              | articulosPipe
+                : inicio
+                : inicioYO
+                : contiene
+                : contieneYO
+                : termina
+                : terminaYO
+          "
           (click)="displayAcepciones(articulo)"
         >
           {{ articulo.lema }}
@@ -27,68 +114,96 @@
       </div>
     </div>
 
-    <div *ngIf="articulo" class="articulo">
-      <h3>{{ articulo.lema }}</h3>
+    <div>
+      <form [formGroup]="buscadorArticuloFormGroup" (ngSubmit)="onSubmit()">
+        <p>
+          <label>
+            Catgoria gramatical:
+            <select formControlName="catGramaticalId">
+              <option disabled>Seleccione una categoria</option>
+              <option
+                *ngFor="let catGramatical of catGramaticales | async"
+                value="{{ catGramatical.id }}"
+              >
+                {{ catGramatical.nombre }}
+              </option>
+            </select>
+          </label>
+        </p>
 
-      <button (click)="goToModifyArticulo()">Editar</button>
+        <p>
+          <button type="submit">Filtrar</button>
+        </p>
 
-      <ol>
-        <li *ngFor="let acepcion of acepciones">
-          <span *ngIf="acepcion.catGramatical">
-            {{ acepcion.catGramatical.abreviatura }}.
-          </span>
+        <p>
+          <button type="button" (click)="removerFiltro()">Quitar filtro</button>
+        </p>
+      </form>
+      <hr />
 
-          <span *ngIf="acepcion.subGramatical">
-            {{ acepcion.subGramatical.abreviatura }}.
-          </span>
+      <div *ngIf="articulo" class="articulo">
+        <h3>{{ articulo.lema }}</h3>
 
-          <span *ngIf="acepcion.infEtimologica">
-            {{ acepcion.infEtimologica.nombre }}.
-          </span>
+        <button (click)="goToModifyArticulo()">Editar</button>
 
-          <span *ngIf="acepcion.infFonetica">
-            {{ acepcion.infFonetica.nombre }}.
-          </span>
+        <ol>
+          <li *ngFor="let acepcion of acepciones">
+            <span *ngIf="acepcion.catGramatical">
+              {{ acepcion.catGramatical.abreviatura }}.
+            </span>
 
-          <span *ngIf="acepcion.infMorfologica">
-            {{ acepcion.infMorfologica.nombre }}.
-          </span>
+            <span *ngIf="acepcion.subGramatical">
+              {{ acepcion.subGramatical.abreviatura }}.
+            </span>
 
-          <span *ngIf="acepcion.infOrtografica">
-            {{ acepcion.infOrtografica.nombre }}.
-          </span>
+            <span *ngIf="acepcion.infEtimologica">
+              {{ acepcion.infEtimologica.nombre }}.
+            </span>
 
-          <span *ngIf="acepcion.marDiacronica">
-            {{ acepcion.marDiacronica.nombre }}.
-          </span>
+            <span *ngIf="acepcion.infFonetica">
+              {{ acepcion.infFonetica.nombre }}.
+            </span>
 
-          <span *ngIf="acepcion.marDiatecnica">
-            {{ acepcion.marDiatecnica.nombre }}.
-          </span>
+            <span *ngIf="acepcion.infMorfologica">
+              {{ acepcion.infMorfologica.nombre }}.
+            </span>
 
-          <span *ngIf="acepcion.marDiatopica">
-            {{ acepcion.marDiatopica.nombre }}.
-          </span>
+            <span *ngIf="acepcion.infOrtografica">
+              {{ acepcion.infOrtografica.nombre }}.
+            </span>
 
-          <span *ngIf="acepcion.marEstratificacionSocial">
-            {{ acepcion.marEstratificacionSocial.nombre }}.
-          </span>
+            <span *ngIf="acepcion.marDiacronica">
+              {{ acepcion.marDiacronica.nombre }}.
+            </span>
 
-          <span *ngIf="acepcion.marFrecuencia">
-            {{ acepcion.marFrecuencia.nombre }}.
-          </span>
+            <span *ngIf="acepcion.marDiatecnica">
+              {{ acepcion.marDiatecnica.nombre }}.
+            </span>
 
-          <span *ngIf="acepcion.marPragmatica">
-            {{ acepcion.marPragmatica.nombre }}.
-          </span>
+            <span *ngIf="acepcion.marDiatopica">
+              {{ acepcion.marDiatopica.nombre }}.
+            </span>
 
-          <span *ngIf="acepcion.marValoracionSocial">
-            {{ acepcion.marValoracionSocial.nombre }}.
-          </span>
+            <span *ngIf="acepcion.marEstratificacionSocial">
+              {{ acepcion.marEstratificacionSocial.nombre }}.
+            </span>
 
-          {{ acepcion.definicion }}
-        </li>
-      </ol>
+            <span *ngIf="acepcion.marFrecuencia">
+              {{ acepcion.marFrecuencia.nombre }}.
+            </span>
+
+            <span *ngIf="acepcion.marPragmatica">
+              {{ acepcion.marPragmatica.nombre }}.
+            </span>
+
+            <span *ngIf="acepcion.marValoracionSocial">
+              {{ acepcion.marValoracionSocial.nombre }}.
+            </span>
+
+            {{ acepcion.definicion }}
+          </li>
+        </ol>
+      </div>
     </div>
   </section>
 </main>
