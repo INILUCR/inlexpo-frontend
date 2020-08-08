@@ -206,9 +206,9 @@ export class AgregarArticuloComponent implements OnInit {
               // No hace nada
             });
         });
-      });
 
-    this.router.navigate(["diccionario/" + diccionarioId]);
+        this.router.navigate(["diccionario/" + diccionarioId]);
+      });
   }
 
   actualizarListDeSubGrmAMostrar(index: number, event: Event) {

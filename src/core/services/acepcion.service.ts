@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Acepcion } from "../models/acepcion";
 import { Observable } from "rxjs";
 import { DatosAcepcion } from "../models/datos-acepcion";
