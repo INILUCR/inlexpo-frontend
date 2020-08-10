@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AcepcionService } from "src/core/services/acepcion.service";
 import { ArticuloService } from "src/core/services/articulo.service";
 import { DiccionarioService } from "src/core/services/diccionario.service";
-import { DiccionarioAPdfService } from "src/core/services/diccionario-a-pdf.service";
 import { Observable } from "rxjs";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { CatGramaticalService } from "src/core/services/cat-gramatical.service";
@@ -44,7 +43,6 @@ export class VerArticulosComponent implements OnInit {
     private articuloService: ArticuloService,
     private catGramaticalService: CatGramaticalService,
     private diccionarioService: DiccionarioService,
-    private diccionarioPdf: DiccionarioAPdfService,
     private busquedaAvanzadaService: BusquedaAvanzadaService,
     private router: Router
   ) {}
@@ -87,9 +85,7 @@ export class VerArticulosComponent implements OnInit {
   }
 
   exportarDiccionario() {
-    const diccionarioId = this.route.snapshot.params.diccionarioId;
-
-    this.diccionarioPdf.crearPdf(diccionarioId, {});
+    this.router.navigate(["exportar"], { relativeTo: this.route });
   }
 
   onSubmit() {

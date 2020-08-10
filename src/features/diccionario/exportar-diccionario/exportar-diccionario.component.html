@@ -1,0 +1,188 @@
+<form [formGroup]="exportarFormGroup" (ngSubmit)="onSubmit()">
+  <h3>
+    Orden de los elementos en el pdf (*0 hace que el elemnto no aparezca):
+  </h3>
+
+  <div formGroupName="orden">
+    <label *ngFor="let elementoAcepcion of elementosAcepcion; index as i">
+      {{ nombreElementosAcepcion[i] }}:
+      <input type="number" formControlName="{{ elementoAcepcion }}" min="0" />
+    </label>
+  </div>
+
+  <hr />
+
+  <div>
+    <h3>Lema:</h3>
+
+    <div formGroupName="lema">
+      <p>
+        <label>
+          Fuente:
+          <select formControlName="font">
+            <option disabled>Seleccione un estilo de fuente</option>
+            <option value="Courier">
+              Courier
+            </option>
+            <option value="Helvetica">
+              Helvetica
+            </option>
+            <option value="Times">
+              Times
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Tamaño de la fuente:
+          <input type="number" formControlName="fontSize" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Negrita:
+          <input type="checkbox" formControlName="bold" />
+        </label>
+
+        <label>
+          Itálica:
+          <input type="checkbox" formControlName="italics" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Decoración:
+          <select formControlName="decoration">
+            <option disabled>Seleccione un estilo de lineado</option>
+            <option value="underline">
+              Subrayado inferior
+            </option>
+            <option value="lineThrough">
+              Línea a través
+            </option>
+            <option value="overline">
+              Subrayado superior
+            </option>
+          </select>
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Estilo de la decoración:
+          <select formControlName="decorationStyle">
+            <option disabled>Seleccione el estilo del lineado</option>
+            <option value="dashed">
+              Linea descontinua
+            </option>
+            <option value="dotted">
+              Línea punteada
+            </option>
+            <option value="double">
+              Doble línea
+            </option>
+            <option value="wavy">
+              Ondulada
+            </option>
+          </select>
+        </label>
+      </p>
+    </div>
+
+    <hr />
+  </div>
+
+  <div *ngFor="let elementoAcepcion of elementosAcepcion; index as i">
+    <div *ngIf="exportarFormGroup.value['orden'][elementoAcepcion] !== 0">
+      <h3>{{ nombreElementosAcepcion[i] }}:</h3>
+
+      <div formGroupName="{{ elementoAcepcion }}">
+        <p>
+          <label>
+            Fuente:
+            <select formControlName="font">
+              <option disabled>Seleccione un estilo de fuente</option>
+              <option value="Courier">
+                Courier
+              </option>
+              <option value="Helvetica">
+                Helvetica
+              </option>
+              <option value="Times">
+                Times
+              </option>
+            </select>
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Tamaño de la fuente:
+            <input type="number" formControlName="fontSize" />
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Negrita:
+            <input type="checkbox" formControlName="bold" />
+          </label>
+
+          <label>
+            Itálica:
+            <input type="checkbox" formControlName="italics" />
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Decoración:
+            <select formControlName="decoration">
+              <option disabled>Seleccione un estilo de lineado</option>
+              <option value="underline">
+                Subrayado inferior
+              </option>
+              <option value="lineThrough">
+                Línea a través
+              </option>
+              <option value="overline">
+                Subrayado superior
+              </option>
+            </select>
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Estilo de la decoración:
+            <select formControlName="decorationStyle">
+              <option disabled>Seleccione el estilo del lineado</option>
+              <option value="dashed">
+                Linea descontinua
+              </option>
+              <option value="dotted">
+                Línea punteada
+              </option>
+              <option value="double">
+                Doble línea
+              </option>
+              <option value="wavy">
+                Ondulada
+              </option>
+            </select>
+          </label>
+        </p>
+      </div>
+
+      <hr />
+    </div>
+  </div>
+
+  <p>
+    <button type="submit">Exportar</button>
+  </p>
+</form>
