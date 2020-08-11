@@ -32,6 +32,26 @@ import { MarValoracionSocialService } from "src/core/services/mar-valoracion-soc
 })
 export class AgregarDiccionarioComponent implements OnInit {
   diccionarioFormGroup: FormGroup;
+  // Variables utilizadas para reducir el metodo para crearla informacion y marcacion
+  informacionMarcacion;
+
+  // Vaialbes creadas para simplificar el html
+  listaInformacionNombres = [
+    ["etimológica", "etimologica"],
+    ["fonética", "fonetica"],
+    ["morfológica", "morfologica"],
+    ["ortográfica", "ortografica"],
+  ];
+
+  listaMarcacionNombres = [
+    ["diacrónica", "diacronica"],
+    ["diatécnica", "diatecnica"],
+    ["diatópica", "diatopica"],
+    ["sociolingüística de estratificación social", "estratificacion"],
+    ["frecuencia", "frecuencia"],
+    ["pragmática", "pragmatica"],
+    ["sociolingüística de valoración social", "valoracion"],
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -66,23 +86,58 @@ export class AgregarDiccionarioComponent implements OnInit {
 
       catGramaticales: this.formBuilder.array([]),
 
-      informacion: this.formBuilder.group({
-        ortografica: this.formBuilder.array([]),
-        fonetica: this.formBuilder.array([]),
-        morfologica: this.formBuilder.array([]),
-        etimologica: this.formBuilder.array([]),
+      // Informacion
+      etimologica: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
+      }),
+      fonetica: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
+      }),
+      morfologica: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
+      }),
+      ortografica: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
       }),
 
-      marcacion: this.formBuilder.group({
-        diatopica: this.formBuilder.array([]),
-        diacronica: this.formBuilder.array([]),
-        frecuencia: this.formBuilder.array([]),
-        valoracionSocial: this.formBuilder.array([]),
-        estratificacionSocial: this.formBuilder.array([]),
-        pragmatica: this.formBuilder.array([]),
-        diatecnica: this.formBuilder.array([]),
+      // Marcacion
+      diacronica: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
+      }),
+      diatecnica: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
+      }),
+      diatopica: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
+      }),
+      estratificacion: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
+      }),
+      frecuencia: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
+      }),
+      pragmatica: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
+      }),
+      valoracion: this.formBuilder.group({
+        lista: this.formBuilder.array([]),
       }),
     });
+
+    // Creamos un objeto que guarda los servicios para guardar informacion y marcacion
+    this.informacionMarcacion = {
+      etimologica: this.infEtimologicaService,
+      fonetica: this.infFoneticaService,
+      morfologica: this.infMorfologicaService,
+      ortografica: this.infOrtograficaService,
+      diacronica: this.marDiacronicaService,
+      diatecnica: this.marDiatecnicaService,
+      diatopica: this.marDiatopicaService,
+      estratificacion: this.marEstratificacionSocialService,
+      frecuencia: this.marFrecuenciaService,
+      pragmatica: this.marPragmaticaService,
+      valoracion: this.marValoracionSocialService,
+    };
   }
 
   /* ------ Metodos para administrar las categorias y subcategorias ------ */
@@ -132,18 +187,16 @@ export class AgregarDiccionarioComponent implements OnInit {
     subGramaticales.removeAt(index);
   }
 
-  /* ------ Metodos para administrar la informacion ------ */
+  /* ------ Metodos para administrar la informacion y marcacion ------ */
 
-  getInformacion(informacion): FormArray {
-    return this.diccionarioFormGroup
-      .get("informacion")
-      .get(informacion) as FormArray;
+  getInformacionMarcacion(nombre): FormArray {
+    return this.diccionarioFormGroup.get(nombre).get("lista") as FormArray;
   }
 
-  addInformacion(informacion) {
-    const informacionArray = this.getInformacion(informacion);
+  addInformacionMarcacion(nombre) {
+    const lista = this.getInformacionMarcacion(nombre);
 
-    informacionArray.push(
+    lista.push(
       this.formBuilder.group({
         nombre: this.formBuilder.control(""),
         descripcion: this.formBuilder.control(""),
@@ -151,28 +204,16 @@ export class AgregarDiccionarioComponent implements OnInit {
     );
   }
 
-  /* ------ Metodos para administrar las marcaciones ------ */
-
-  getMarcacion(marcacion): FormArray {
-    return this.diccionarioFormGroup
-      .get("marcacion")
-      .get(marcacion) as FormArray;
-  }
-
-  addMarcacion(marcacion) {
-    const marcacionArray = this.getMarcacion(marcacion);
-
-    marcacionArray.push(
-      this.formBuilder.group({
-        nombre: this.formBuilder.control(""),
-        descripcion: this.formBuilder.control(""),
-      })
-    );
+  deleteInformacionMarcacion(nombre, index) {
+    const lista = this.getInformacionMarcacion(nombre);
+    lista.removeAt(index);
   }
 
   /* ----- Metodos para guardar en la base de datos ----- */
 
   onSubmit() {
+    console.log(this.diccionarioFormGroup.value);
+
     const diccionario = this.diccionarioFormGroup.value
       .diccionario as Diccionario;
 
@@ -199,129 +240,19 @@ export class AgregarDiccionarioComponent implements OnInit {
           });
       });
 
-      // Agregamos la informacion a la base de datos
+      // Agregamos las marcaciones e informacion utilizando sus servicios respectivos
+      let listaInfMar;
+      for (let nombreServicio in this.informacionMarcacion) {
+        // tslint:disable-next-line: forin
+        listaInfMar = this.diccionarioFormGroup.value[nombreServicio]["lista"];
 
-      // Etimologica
-      const infEtimologicas = this.diccionarioFormGroup.value.informacion[
-        "etimologica"
-      ] as InformacionMarcacion[];
-
-      infEtimologicas.forEach((infEtimologica) => {
-        this.infEtimologicaService
-          .crear(diccionarioNuevo.id, infEtimologica)
-          .subscribe();
-      });
-
-      // Fonetica
-      const infFoneticas = this.diccionarioFormGroup.value.informacion[
-        "fonetica"
-      ] as InformacionMarcacion[];
-
-      infFoneticas.forEach((infFonetica) => {
-        this.infFoneticaService
-          .crear(diccionarioNuevo.id, infFonetica)
-          .subscribe();
-      });
-
-      // Morfologica
-      const infMorfologicas = this.diccionarioFormGroup.value.informacion[
-        "morfologica"
-      ] as InformacionMarcacion[];
-
-      infMorfologicas.forEach((infMorfologica) => {
-        this.infMorfologicaService
-          .crear(diccionarioNuevo.id, infMorfologica)
-          .subscribe();
-      });
-
-      // Ortografica
-      const infOrtograficas = this.diccionarioFormGroup.value.informacion[
-        "ortografica"
-      ] as InformacionMarcacion[];
-
-      infOrtograficas.forEach((infOrtografica) => {
-        this.infOrtograficaService
-          .crear(diccionarioNuevo.id, infOrtografica)
-          .subscribe();
-      });
-
-      // Agregamos la marcacion a la base de datos
-
-      // Diacronica
-      const marDiacronicas = this.diccionarioFormGroup.value.marcacion[
-        "diacronica"
-      ] as InformacionMarcacion[];
-
-      marDiacronicas.forEach((marDiacronica) => {
-        this.marDiacronicaService
-          .crear(diccionarioNuevo.id, marDiacronica)
-          .subscribe();
-      });
-
-      // Diatecnica
-      const marDiatecnicas = this.diccionarioFormGroup.value.marcacion[
-        "diatecnica"
-      ] as InformacionMarcacion[];
-
-      marDiatecnicas.forEach((marDiatecnica) => {
-        this.marDiatecnicaService
-          .crear(diccionarioNuevo.id, marDiatecnica)
-          .subscribe();
-      });
-
-      // Diatopica
-      const marDiatopicas = this.diccionarioFormGroup.value.marcacion[
-        "diatopica"
-      ] as InformacionMarcacion[];
-
-      marDiatopicas.forEach((marDiatopica) => {
-        this.marDiatopicaService
-          .crear(diccionarioNuevo.id, marDiatopica)
-          .subscribe();
-      });
-
-      // Estratificacion Social
-      const marEstratificacionSociales = this.diccionarioFormGroup.value
-        .marcacion["estratificacionSocial"] as InformacionMarcacion[];
-
-      marEstratificacionSociales.forEach((marEstratificacionSocial) => {
-        this.marEstratificacionSocialService
-          .crear(diccionarioNuevo.id, marEstratificacionSocial)
-          .subscribe();
-      });
-
-      // Frecuencia
-      const marFrecuencias = this.diccionarioFormGroup.value.marcacion[
-        "frecuencia"
-      ] as InformacionMarcacion[];
-
-      marFrecuencias.forEach((marFrecuencia) => {
-        this.marFrecuenciaService
-          .crear(diccionarioNuevo.id, marFrecuencia)
-          .subscribe();
-      });
-
-      // Pragmatica
-      const marPragmaticas = this.diccionarioFormGroup.value.marcacion[
-        "pragmatica"
-      ] as InformacionMarcacion[];
-
-      marPragmaticas.forEach((marPragmatica) => {
-        this.marPragmaticaService
-          .crear(diccionarioNuevo.id, marPragmatica)
-          .subscribe();
-      });
-
-      // Valoracion Social
-      const marValoracionSociales = this.diccionarioFormGroup.value.marcacion[
-        "valoracionSocial"
-      ] as InformacionMarcacion[];
-
-      marValoracionSociales.forEach((marValoracionSocial) => {
-        this.marValoracionSocialService
-          .crear(diccionarioNuevo.id, marValoracionSocial)
-          .subscribe();
-      });
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < listaInfMar.length; ++i) {
+          this.informacionMarcacion[nombreServicio]
+            .crear(diccionarioNuevo.id, listaInfMar[i])
+            .subscribe();
+        }
+      }
 
       this.router.navigate(["inicio"]);
     });

@@ -36,6 +36,29 @@ export class AgregarArticuloComponent implements OnInit {
 
   listaDeSubGrmAMostrar: number[];
 
+  // Vaialbes creadas para simplificar el html
+  informacionMarcacion;
+
+  listaInformacionNombres = [
+    ["etimológica", "infEtimologicaId"],
+    ["fonética", "infFoneticaId"],
+    ["morfológica", "infMorfologicaId"],
+    ["ortográfica", "infOrtograficaId"],
+  ];
+
+  listaMarcacionNombres = [
+    ["diacrónica", "marDiacronicaId"],
+    ["diatécnica", "marDiatecnicaId"],
+    ["diatópica", "marDiatopicaId"],
+    [
+      "sociolingüística de estratificación social",
+      "marEstratificacionSocialId",
+    ],
+    ["frecuencia", "marFrecuenciaId"],
+    ["pragmática", "marPragmaticaId"],
+    ["sociolingüística de valoración social", "marValoracionSocialId"],
+  ];
+
   infEtimologicas: Observable<InformacionMarcacion[]>;
   infFoneticas: Observable<InformacionMarcacion[]>;
   infMorfologicas: Observable<InformacionMarcacion[]>;
@@ -101,51 +124,42 @@ export class AgregarArticuloComponent implements OnInit {
       }
     });
 
-    // Pedimos la informacion asociadas al diccionario
-    this.infEtimologicas = this.infEtimologicaService.buscarPorDiccionario(
-      diccionarioId
-    );
-
-    this.infFoneticas = this.infFoneticaService.buscarPorDiccionario(
-      diccionarioId
-    );
-
-    this.infMorfologicas = this.infMorfologicaService.buscarPorDiccionario(
-      diccionarioId
-    );
-
-    this.infOrtograficas = this.infOrtograficaService.buscarPorDiccionario(
-      diccionarioId
-    );
-
-    // Pedimos las marcaciones asociadas al diccionario
-    this.marDiacronicas = this.marDiacronicaService.buscarPorDiccionario(
-      diccionarioId
-    );
-
-    this.marDiatecnicas = this.marDiatecnicaService.buscarPorDiccionario(
-      diccionarioId
-    );
-
-    this.marDiatopicas = this.marDiatopicaService.buscarPorDiccionario(
-      diccionarioId
-    );
-
-    this.marEstratificacionSociales = this.marEstratificacionSocialService.buscarPorDiccionario(
-      diccionarioId
-    );
-
-    this.marFrecuencias = this.marFrecuenciaService.buscarPorDiccionario(
-      diccionarioId
-    );
-
-    this.marPragmaticas = this.marPragmaticaService.buscarPorDiccionario(
-      diccionarioId
-    );
-
-    this.marValoracionSociales = this.marValoracionSocialService.buscarPorDiccionario(
-      diccionarioId
-    );
+    // Creamos un objeto que guarda los servicios para guardar informacion y marcacion
+    this.informacionMarcacion = {
+      infEtimologicaId: this.infEtimologicaService.buscarPorDiccionario(
+        diccionarioId
+      ),
+      infFoneticaId: this.infFoneticaService.buscarPorDiccionario(
+        diccionarioId
+      ),
+      infMorfologicaId: this.infMorfologicaService.buscarPorDiccionario(
+        diccionarioId
+      ),
+      infOrtograficaId: this.infOrtograficaService.buscarPorDiccionario(
+        diccionarioId
+      ),
+      marDiacronicaId: this.marDiacronicaService.buscarPorDiccionario(
+        diccionarioId
+      ),
+      marDiatecnicaId: this.marDiatecnicaService.buscarPorDiccionario(
+        diccionarioId
+      ),
+      marDiatopicaId: this.marDiatopicaService.buscarPorDiccionario(
+        diccionarioId
+      ),
+      marEstratificacionSocialId: this.marEstratificacionSocialService.buscarPorDiccionario(
+        diccionarioId
+      ),
+      marFrecuenciaId: this.marFrecuenciaService.buscarPorDiccionario(
+        diccionarioId
+      ),
+      marPragmaticaId: this.marPragmaticaService.buscarPorDiccionario(
+        diccionarioId
+      ),
+      marValoracionSocialId: this.marValoracionSocialService.buscarPorDiccionario(
+        diccionarioId
+      ),
+    };
   }
 
   /* ------ Metodos para administrar las acepciones ------ */
@@ -212,7 +226,7 @@ export class AgregarArticuloComponent implements OnInit {
   }
 
   actualizarListDeSubGrmAMostrar(index: number, event: Event) {
-    const listaAMostrar = event.target["selectedIndex"] - 1;
+    const listaAMostrar = event.target["selectedIndex"] - 2;
     this.listaDeSubGrmAMostrar[index] = listaAMostrar;
   }
 }
