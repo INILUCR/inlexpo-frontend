@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VerArticulosComponent } from './ver-articulos/ver-articulos.component';
 import { AgregarArticuloComponent } from './agregar-articulo/agregar-articulo.component';
 import { ExportarDiccionarioComponent } from './exportar-diccionario/exportar-diccionario.component';
+import { EditarArticuloComponent } from './editar-articulo/editar-articulo.component';
 
 
 
@@ -14,6 +15,7 @@ import { ExportarDiccionarioComponent } from './exportar-diccionario/exportar-di
     VerArticulosComponent,
     AgregarArticuloComponent,
     ExportarDiccionarioComponent,
+    EditarArticuloComponent,
   ],
   imports: [
     CommonModule,

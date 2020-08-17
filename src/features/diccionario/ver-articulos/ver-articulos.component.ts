@@ -81,7 +81,9 @@ export class VerArticulosComponent implements OnInit {
   }
 
   goToModifyArticulo() {
-    this.router.navigate(["modificar-articulo/" + this.articulo.id]);
+    this.router.navigate(["editar-articulo/" + this.articulo.id], {
+      relativeTo: this.route,
+    });
   }
 
   exportarDiccionario() {

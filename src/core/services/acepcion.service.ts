@@ -27,4 +27,21 @@ export class AcepcionService {
       datosAcepcion
     );
   }
+
+  public actualizar(
+    articuloId: number,
+    acepcionId: number,
+    datosAcepcion: DatosAcepcion
+  ): Observable<Acepcion> {
+    return this.http.put<Acepcion>(
+      this.acepcionUrl + articuloId + "/acepcion/" + acepcionId,
+      datosAcepcion
+    );
+  }
+
+  public eliminar(articuloId: number, acepcionId: number): Observable<boolean> {
+    return this.http.delete<boolean>(
+      this.acepcionUrl + articuloId + "/acepcion/" + acepcionId
+    );
+  }
 }

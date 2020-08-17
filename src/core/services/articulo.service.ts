@@ -11,6 +11,15 @@ export class ArticuloService {
 
   constructor(private http: HttpClient) {}
 
+  public buscarPorId(
+    diccionarioId: number,
+    articuloId: number
+  ): Observable<Articulo> {
+    return this.http.get<Articulo>(
+      this.articuloUrl + diccionarioId + "/articulo/" + articuloId
+    );
+  }
+
   public buscarPorDiccionario(diccionarioId: number): Observable<Articulo[]> {
     return this.http.get<Articulo[]>(
       this.articuloUrl + diccionarioId + "/articulo"
@@ -23,6 +32,17 @@ export class ArticuloService {
   ): Observable<Articulo> {
     return this.http.post<Articulo>(
       this.articuloUrl + diccionarioId + "/articulo",
+      articulo
+    );
+  }
+
+  public actualizar(
+    diccionarioId: number,
+    articuloId: number,
+    articulo: Articulo
+  ): Observable<Articulo> {
+    return this.http.put<Articulo>(
+      this.articuloUrl + diccionarioId + "/articulo/" + articuloId,
       articulo
     );
   }
