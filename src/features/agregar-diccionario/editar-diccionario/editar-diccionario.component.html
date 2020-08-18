@@ -1,0 +1,226 @@
+<form [formGroup]="diccionarioFormGroup" (ngSubmit)="onSubmit()">
+  <!-- 1. Datos generales sobre el diccionario -->
+  <h2>1. Ingresar los datos sobre el diccionario</h2>
+
+  <!-- Agregamos los datos del diccionario en un div, para poder obtener el formgroup del diccionario -->
+  <div formGroupName="diccionario" class="form">
+    <p>
+      <label>
+        Nombre:
+        <input type="text" formControlName="nombre" />
+      </label>
+    </p>
+
+    <p>
+      <label>
+        Tipo:
+        <input type="text" formControlName="tipo" />
+      </label>
+    </p>
+
+    <p>
+      <label>
+        Descripcion:
+        <textarea formControlName="descripcion"></textarea>
+      </label>
+    </p>
+  </div>
+  <hr />
+
+  <!-- 2. Ingresar las categorias y subategorias del diccionario -->
+  <h2>2. Ingresar las categorias y subcategorias del diccionario</h2>
+
+  <!-- Iteramos por cada categoria que se va agregando -->
+  <div
+    formArrayName="catGramaticales"
+    *ngFor="let catGramatical of getCatGramaticales().controls; index as index"
+  >
+    <h3>Categoria gramatical</h3>
+
+    <div [formGroup]="catGramatical">
+      <p>
+        <label>
+          Nombre:
+          <input type="text" formControlName="nombre" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Abreviatura:
+          <input type="text" formControlName="abreviatura" />
+        </label>
+      </p>
+
+      <p>
+        <label>
+          Descripcion:
+          <textarea formControlName="descripcion"></textarea>
+        </label>
+
+        <a type="button" (click)="deleteCatGramatical(index)">Eliminar</a>
+      </p>
+
+      <!-- Iteramos por las subcategorias gramaticales -->
+      <div
+        formArrayName="subGramaticales"
+        *ngFor="
+          let subGramatical of getSubGramaticales(catGramatical).controls;
+          index as index2
+        "
+      >
+        <h4>Subcategoria gramatical</h4>
+
+        <div [formGroup]="subGramatical">
+          <p>
+            <label>
+              Nombre:
+              <input type="text" formControlName="nombre" />
+            </label>
+          </p>
+
+          <p>
+            <label>
+              Abreviatura:
+              <input type="text" formControlName="abreviatura" />
+            </label>
+          </p>
+
+          <p>
+            <label>
+              Descripcion:
+              <textarea formControlName="descripcion"></textarea>
+            </label>
+
+            <a
+              type="button"
+              (click)="deleteSubGramatical(catGramatical, index2)"
+              >Eliminar</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <p>
+        <button type="button" (click)="addSubGramatical(catGramatical)">
+          Agregar subcategoria
+        </button>
+      </p>
+    </div>
+  </div>
+
+  <p>
+    <button type="button" (click)="addCatGramatical()">
+      Agregar categoria
+    </button>
+  </p>
+  <hr />
+
+  <!-- 3. Ingresar la informacion -->
+  <h2>
+    3. Ingresar la información que se puede asociar a los artículos del
+    diccionario
+  </h2>
+  <hr />
+
+  <div *ngFor="let informacion of listaInformacionNombres">
+    <div [formGroupName]="informacion[1]">
+      <h3>Información {{ informacion[0] }}</h3>
+
+      <div
+        formArrayName="lista"
+        *ngFor="
+          let grupo of getInformacionMarcacion(informacion[1]).controls;
+          index as index
+        "
+      >
+        <h4>Información</h4>
+
+        <div [formGroup]="grupo">
+          <p>
+            <label>
+              Nombre:
+              <input type="text" formControlName="nombre" />
+            </label>
+          </p>
+
+          <p>
+            <label>
+              Descripcion:
+              <textarea formControlName="descripcion"></textarea>
+            </label>
+
+            <a
+              type="button"
+              (click)="deleteInformacionMarcacion(informacion[1], index)"
+              >Eliminar</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <p>
+        <button type="button" (click)="addInformacionMarcacion(informacion[1])">
+          Agregar {{ informacion[0] }}
+        </button>
+      </p>
+      <hr />
+    </div>
+  </div>
+
+  <!-- 4. Ingresar las marcaciones -->
+  <h2>
+    4. Ingresar las marcaciones que se puede asociar a los artículos del
+    diccionario
+  </h2>
+  <hr />
+
+  <div *ngFor="let marcacion of listaMarcacionNombres">
+    <div [formGroupName]="marcacion[1]">
+      <h3>Marcación {{ marcacion[0] }}</h3>
+
+      <div
+        formArrayName="lista"
+        *ngFor="
+          let grupo of getInformacionMarcacion(marcacion[1]).controls;
+          index as index
+        "
+      >
+        <h4>Marcación</h4>
+
+        <div [formGroup]="grupo">
+          <p>
+            <label>
+              Nombre:
+              <input type="text" formControlName="nombre" />
+            </label>
+          </p>
+
+          <p>
+            <label>
+              Descripcion:
+              <textarea formControlName="descripcion"></textarea>
+            </label>
+
+            <a
+              type="button"
+              (click)="deleteInformacionMarcacion(marcacion[1], index)"
+              >Eliminar</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <p>
+        <button type="button" (click)="addInformacionMarcacion(marcacion[1])">
+          Agregar {{ marcacion[0] }}
+        </button>
+      </p>
+      <hr />
+    </div>
+  </div>
+
+  <p>
+    <button type="submit">Actualizar</button>
+  </p>
+</form>

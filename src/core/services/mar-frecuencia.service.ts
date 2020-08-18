@@ -7,17 +7,19 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class MarFrecuenciaService {
-  private marFrecuenciaUrl: string;
+  private marFrecuenciaUrl1: string;
+  private marFrecuenciaUrl2: string;
 
   constructor(private http: HttpClient) {
-    this.marFrecuenciaUrl = "http://localhost:8080/inlexpo/diccionario/";
+    this.marFrecuenciaUrl1 = "http://localhost:8080/inlexpo/diccionario/";
+    this.marFrecuenciaUrl2 = "http://localhost:8080/inlexpo/marFrecuencia/";
   }
 
   public buscarPorDiccionario(
     diccionarioId: number
   ): Observable<InformacionMarcacion[]> {
     return this.http.get<InformacionMarcacion[]>(
-      this.marFrecuenciaUrl + diccionarioId + "/marFrecuencia"
+      this.marFrecuenciaUrl1 + diccionarioId + "/marFrecuencia"
     );
   }
 
@@ -26,8 +28,22 @@ export class MarFrecuenciaService {
     marFrecuencia: InformacionMarcacion
   ): Observable<InformacionMarcacion> {
     return this.http.post<InformacionMarcacion>(
-      this.marFrecuenciaUrl + diccionarioId + "/marFrecuencia",
+      this.marFrecuenciaUrl1 + diccionarioId + "/marFrecuencia",
       marFrecuencia
     );
+  }
+
+  public actualizar(
+    marFrecuenciaId: number,
+    marFrecuencia: InformacionMarcacion
+  ): Observable<InformacionMarcacion> {
+    return this.http.put<InformacionMarcacion>(
+      this.marFrecuenciaUrl2 + marFrecuenciaId,
+      marFrecuencia
+    );
+  }
+
+  public eliminar(marFrecuenciaId: number): Observable<boolean> {
+    return this.http.delete<boolean>(this.marFrecuenciaUrl2 + marFrecuenciaId);
   }
 }

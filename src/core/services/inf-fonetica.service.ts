@@ -7,17 +7,19 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class InfFoneticaService {
-  private infFoneticaUrl: string;
+  private infFoneticaUrl1: string;
+  private infFoneticaUrl2: string;
 
   constructor(private http: HttpClient) {
-    this.infFoneticaUrl = "http://localhost:8080/inlexpo/diccionario/";
+    this.infFoneticaUrl1 = "http://localhost:8080/inlexpo/diccionario/";
+    this.infFoneticaUrl2 = "http://localhost:8080/inlexpo/infFonetica/";
   }
 
   public buscarPorDiccionario(
     diccionarioId: number
   ): Observable<InformacionMarcacion[]> {
     return this.http.get<InformacionMarcacion[]>(
-      this.infFoneticaUrl + diccionarioId + "/infFonetica"
+      this.infFoneticaUrl1 + diccionarioId + "/infFonetica"
     );
   }
 
@@ -26,8 +28,22 @@ export class InfFoneticaService {
     infFonetica: InformacionMarcacion
   ): Observable<InformacionMarcacion> {
     return this.http.post<InformacionMarcacion>(
-      this.infFoneticaUrl + diccionarioId + "/infFonetica",
+      this.infFoneticaUrl1 + diccionarioId + "/infFonetica",
       infFonetica
     );
+  }
+
+  public actualizar(
+    infFoneticaId: number,
+    infFonetica: InformacionMarcacion
+  ): Observable<InformacionMarcacion> {
+    return this.http.put<InformacionMarcacion>(
+      this.infFoneticaUrl2 + infFoneticaId,
+      infFonetica
+    );
+  }
+
+  public eliminar(infFoneticaId: number): Observable<boolean> {
+    return this.http.delete<boolean>(this.infFoneticaUrl2 + infFoneticaId);
   }
 }

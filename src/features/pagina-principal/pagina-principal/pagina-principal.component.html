@@ -1,12 +1,16 @@
 <main>
-  <button type="button" (click)="goToCreateDiccionario()">Agregar</button>
+  <button type="button" (click)="goToAgregarDiccionario()">Agregar</button>
 
-  <div *ngFor="let diccionario of diccionarios; index as i" (click)="goToDiccionario(i)">
-    <h2>{{diccionario.nombre}}</h2>
+  <div
+    *ngFor="let diccionario of diccionarios; index as i"
+    (click)="goToDiccionario(i)"
+  >
+    <h2>{{ diccionario.nombre }}</h2>
+    <button (click)="goToEditarDiccionario(i)">Editar</button>
     <h3>Tipo:</h3>
-    <p>{{diccionario.tipo}}</p>
+    <p>{{ diccionario.tipo }}</p>
     <h3>Descripcion:</h3>
-    <p>{{diccionario.descripcion}}</p>
-    <hr>
+    <p>{{ diccionario.descripcion }}</p>
+    <hr />
   </div>
 </main>

@@ -1,36 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { DiccionarioService } from '../../../core/services/diccionario.service';
-import { Diccionario } from '../../../core/models/diccionario';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { DiccionarioService } from "../../../core/services/diccionario.service";
+import { Diccionario } from "../../../core/models/diccionario";
+import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-pagina-principal',
-  templateUrl: './pagina-principal.component.html',
-  styleUrls: ['./pagina-principal.component.sass']
+  selector: "app-pagina-principal",
+  templateUrl: "./pagina-principal.component.html",
+  styleUrls: ["./pagina-principal.component.sass"],
 })
 export class PaginaPrincipalComponent implements OnInit {
-
   diccionarios: Diccionario[];
 
-  constructor(private diccionarioService: DiccionarioService,
-              private router: Router) { }
+  constructor(
+    private diccionarioService: DiccionarioService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.cargarDiccionarios();
   }
 
   cargarDiccionarios() {
-    this.diccionarioService.buscarTodos().subscribe(diccionarios => {
+    this.diccionarioService.buscarTodos().subscribe((diccionarios) => {
       this.diccionarios = diccionarios;
     });
   }
 
-  goToCreateDiccionario() {
-    this.router.navigate(['agregar-diccionario']);
+  goToAgregarDiccionario() {
+    this.router.navigate(["agregar-diccionario"]);
+  }
+
+  goToEditarDiccionario(i: number) {
+    this.router.navigate(["editar-diccionario/" + (i + 1)]);
   }
 
   goToDiccionario(i: number) {
-    this.router.navigate(['diccionario/' + (i + 1)]);
+    this.router.navigate(["diccionario/" + (i + 1)]);
   }
 }

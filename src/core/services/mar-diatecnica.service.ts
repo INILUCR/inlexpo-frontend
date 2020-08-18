@@ -7,17 +7,19 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class MarDiatecnicaService {
-  private marDiatecnicaUrl: string;
+  private marDiatecnicaUrl1: string;
+  private marDiatecnicaUrl2: string;
 
   constructor(private http: HttpClient) {
-    this.marDiatecnicaUrl = "http://localhost:8080/inlexpo/diccionario/";
+    this.marDiatecnicaUrl1 = "http://localhost:8080/inlexpo/diccionario/";
+    this.marDiatecnicaUrl2 = "http://localhost:8080/inlexpo/marDiatecnica/";
   }
 
   public buscarPorDiccionario(
     diccionarioId: number
   ): Observable<InformacionMarcacion[]> {
     return this.http.get<InformacionMarcacion[]>(
-      this.marDiatecnicaUrl + diccionarioId + "/marDiatecnica"
+      this.marDiatecnicaUrl1 + diccionarioId + "/marDiatecnica"
     );
   }
 
@@ -26,8 +28,22 @@ export class MarDiatecnicaService {
     marDiatecnica: InformacionMarcacion
   ): Observable<InformacionMarcacion> {
     return this.http.post<InformacionMarcacion>(
-      this.marDiatecnicaUrl + diccionarioId + "/marDiatecnica",
+      this.marDiatecnicaUrl1 + diccionarioId + "/marDiatecnica",
       marDiatecnica
     );
+  }
+
+  public actualizar(
+    marDiatecnicaId: number,
+    marDiatecnica: InformacionMarcacion
+  ): Observable<InformacionMarcacion> {
+    return this.http.put<InformacionMarcacion>(
+      this.marDiatecnicaUrl2 + marDiatecnicaId,
+      marDiatecnica
+    );
+  }
+
+  public eliminar(marDiatecnicaId: number): Observable<boolean> {
+    return this.http.delete<boolean>(this.marDiatecnicaUrl2 + marDiatecnicaId);
   }
 }

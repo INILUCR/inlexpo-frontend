@@ -7,17 +7,20 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class MarValoracionSocialService {
-  private marValoracionSocialUrl: string;
+  private marValoracionSocialUrl1: string;
+  private marValoracionSocialUrl2: string;
 
   constructor(private http: HttpClient) {
-    this.marValoracionSocialUrl = "http://localhost:8080/inlexpo/diccionario/";
+    this.marValoracionSocialUrl1 = "http://localhost:8080/inlexpo/diccionario/";
+    this.marValoracionSocialUrl2 =
+      "http://localhost:8080/inlexpo/marValoracionSocial/";
   }
 
   public buscarPorDiccionario(
     diccionarioId: number
   ): Observable<InformacionMarcacion[]> {
     return this.http.get<InformacionMarcacion[]>(
-      this.marValoracionSocialUrl + diccionarioId + "/marValoracionSocial"
+      this.marValoracionSocialUrl1 + diccionarioId + "/marValoracionSocial"
     );
   }
 
@@ -26,8 +29,24 @@ export class MarValoracionSocialService {
     marValoracionSocial: InformacionMarcacion
   ): Observable<InformacionMarcacion> {
     return this.http.post<InformacionMarcacion>(
-      this.marValoracionSocialUrl + diccionarioId + "/marValoracionSocial",
+      this.marValoracionSocialUrl1 + diccionarioId + "/marValoracionSocial",
       marValoracionSocial
+    );
+  }
+
+  public actualizar(
+    marValoracionSocialId: number,
+    marValoracionSocial: InformacionMarcacion
+  ): Observable<InformacionMarcacion> {
+    return this.http.put<InformacionMarcacion>(
+      this.marValoracionSocialUrl2 + marValoracionSocialId,
+      marValoracionSocial
+    );
+  }
+
+  public eliminar(marValoracionSocialId: number): Observable<boolean> {
+    return this.http.delete<boolean>(
+      this.marValoracionSocialUrl2 + marValoracionSocialId
     );
   }
 }

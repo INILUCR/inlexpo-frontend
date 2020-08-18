@@ -7,17 +7,19 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class InfOrtograficaService {
-  private infOrtograficaUrl: string;
+  private infOrtograficaUrl1: string;
+  private infOrtograficaUrl2: string;
 
   constructor(private http: HttpClient) {
-    this.infOrtograficaUrl = "http://localhost:8080/inlexpo/diccionario/";
+    this.infOrtograficaUrl1 = "http://localhost:8080/inlexpo/diccionario/";
+    this.infOrtograficaUrl2 = "http://localhost:8080/inlexpo/infOrtografica/";
   }
 
   public buscarPorDiccionario(
     diccionarioId: number
   ): Observable<InformacionMarcacion[]> {
     return this.http.get<InformacionMarcacion[]>(
-      this.infOrtograficaUrl + diccionarioId + "/infOrtografica"
+      this.infOrtograficaUrl1 + diccionarioId + "/infOrtografica"
     );
   }
 
@@ -26,8 +28,24 @@ export class InfOrtograficaService {
     infOrtografica: InformacionMarcacion
   ): Observable<InformacionMarcacion> {
     return this.http.post<InformacionMarcacion>(
-      this.infOrtograficaUrl + diccionarioId + "/infOrtografica",
+      this.infOrtograficaUrl1 + diccionarioId + "/infOrtografica",
       infOrtografica
+    );
+  }
+
+  public actualizar(
+    infOrtograficaId: number,
+    infOrtografica: InformacionMarcacion
+  ): Observable<InformacionMarcacion> {
+    return this.http.put<InformacionMarcacion>(
+      this.infOrtograficaUrl2 + infOrtograficaId,
+      infOrtografica
+    );
+  }
+
+  public eliminar(infOrtograficaId: number): Observable<boolean> {
+    return this.http.delete<boolean>(
+      this.infOrtograficaUrl2 + infOrtograficaId
     );
   }
 }

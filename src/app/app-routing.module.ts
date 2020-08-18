@@ -6,10 +6,15 @@ import { AgregarArticuloComponent } from "src/features/diccionario/agregar-artic
 import { PaginaPrincipalComponent } from "src/features/pagina-principal/pagina-principal/pagina-principal.component";
 import { ExportarDiccionarioComponent } from "src/features/diccionario/exportar-diccionario/exportar-diccionario.component";
 import { EditarArticuloComponent } from "src/features/diccionario/editar-articulo/editar-articulo.component";
+import { EditarDiccionarioComponent } from "src/features/agregar-diccionario/editar-diccionario/editar-diccionario.component";
 
 const routes: Routes = [
   { path: "inicio", component: PaginaPrincipalComponent },
   { path: "agregar-diccionario", component: AgregarDiccionarioComponent },
+  {
+    path: "editar-diccionario/:diccionarioId",
+    component: EditarDiccionarioComponent,
+  },
   { path: "diccionario/:diccionarioId", component: VerArticulosComponent },
   {
     path: "diccionario/:diccionarioId/agregar-articulo",

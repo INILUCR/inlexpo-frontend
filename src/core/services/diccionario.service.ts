@@ -11,15 +11,25 @@ export class DiccionarioService {
 
   constructor(private http: HttpClient) {}
 
-  public buscarTodos(): Observable<Diccionario[]> {
-    return this.http.get<Diccionario[]>(this.diccionarioUrl);
-  }
-
   public buscarPorId(diccionarioId: number): Observable<Diccionario> {
     return this.http.get<Diccionario>(this.diccionarioUrl + diccionarioId);
   }
 
+  public buscarTodos(): Observable<Diccionario[]> {
+    return this.http.get<Diccionario[]>(this.diccionarioUrl);
+  }
+
   public crear(diccionario: Diccionario): Observable<Diccionario> {
     return this.http.post<Diccionario>(this.diccionarioUrl, diccionario);
+  }
+
+  public actualizar(
+    diccionarioId: number,
+    diccionario: Diccionario
+  ): Observable<Diccionario> {
+    return this.http.put<Diccionario>(
+      this.diccionarioUrl + diccionarioId,
+      diccionario
+    );
   }
 }

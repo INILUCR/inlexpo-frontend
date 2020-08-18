@@ -7,17 +7,19 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class CatGramaticalService {
-  private catGramaticalUrl: string;
+  private catGramaticalUrl1: string;
+  private catGramaticalUrl2: string;
 
   constructor(private http: HttpClient) {
-    this.catGramaticalUrl = "http://localhost:8080/inlexpo/diccionario/";
+    this.catGramaticalUrl1 = "http://localhost:8080/inlexpo/diccionario/";
+    this.catGramaticalUrl2 = "http://localhost:8080/inlexpo/catGramatical/";
   }
 
   public buscarPorDiccionario(
     diccionarioId: number
   ): Observable<CatGramatical[]> {
     return this.http.get<CatGramatical[]>(
-      this.catGramaticalUrl + diccionarioId + "/catGramatical"
+      this.catGramaticalUrl1 + diccionarioId + "/catGramatical"
     );
   }
 
@@ -26,8 +28,22 @@ export class CatGramaticalService {
     catGramatical: CatGramatical
   ): Observable<CatGramatical> {
     return this.http.post<CatGramatical>(
-      this.catGramaticalUrl + diccionarioId + "/catGramatical",
+      this.catGramaticalUrl1 + diccionarioId + "/catGramatical",
       catGramatical
     );
+  }
+
+  public actualizar(
+    catGramaticalId: number,
+    catGramatical: CatGramatical
+  ): Observable<CatGramatical> {
+    return this.http.put<CatGramatical>(
+      this.catGramaticalUrl2 + catGramaticalId,
+      catGramatical
+    );
+  }
+
+  public eliminar(catGramaticalId: number): Observable<boolean> {
+    return this.http.delete<boolean>(this.catGramaticalUrl2 + catGramaticalId);
   }
 }

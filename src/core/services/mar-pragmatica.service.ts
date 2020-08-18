@@ -7,17 +7,19 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class MarPragmaticaService {
-  private marPragmaticaUrl: string;
+  private marPragmaticaUrl1: string;
+  private marPragmaticaUrl2: string;
 
   constructor(private http: HttpClient) {
-    this.marPragmaticaUrl = "http://localhost:8080/inlexpo/diccionario/";
+    this.marPragmaticaUrl1 = "http://localhost:8080/inlexpo/diccionario/";
+    this.marPragmaticaUrl2 = "http://localhost:8080/inlexpo/marPragmatica/";
   }
 
   public buscarPorDiccionario(
     diccionarioId: number
   ): Observable<InformacionMarcacion[]> {
     return this.http.get<InformacionMarcacion[]>(
-      this.marPragmaticaUrl + diccionarioId + "/marPragmatica"
+      this.marPragmaticaUrl1 + diccionarioId + "/marPragmatica"
     );
   }
 
@@ -26,8 +28,22 @@ export class MarPragmaticaService {
     marPragmatica: InformacionMarcacion
   ): Observable<InformacionMarcacion> {
     return this.http.post<InformacionMarcacion>(
-      this.marPragmaticaUrl + diccionarioId + "/marPragmatica",
+      this.marPragmaticaUrl1 + diccionarioId + "/marPragmatica",
       marPragmatica
     );
+  }
+
+  public actualizar(
+    marPragmaticaId: number,
+    marPragmatica: InformacionMarcacion
+  ): Observable<InformacionMarcacion> {
+    return this.http.put<InformacionMarcacion>(
+      this.marPragmaticaUrl2 + marPragmaticaId,
+      marPragmatica
+    );
+  }
+
+  public eliminar(marPragmaticaId: number): Observable<boolean> {
+    return this.http.delete<boolean>(this.marPragmaticaUrl2 + marPragmaticaId);
   }
 }
