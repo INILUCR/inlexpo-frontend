@@ -76,11 +76,11 @@ export class VerArticulosComponent implements OnInit {
       });
   }
 
-  goToCreateArticulo() {
+  goToAgregarArticulo() {
     this.router.navigate(["agregar-articulo"], { relativeTo: this.route });
   }
 
-  goToModifyArticulo() {
+  goToEditarArticulo() {
     this.router.navigate(["editar-articulo/" + this.articulo.id], {
       relativeTo: this.route,
     });

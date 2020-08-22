@@ -161,8 +161,11 @@ export class AgregarDiccionarioComponent implements OnInit {
 
   deleteCatGramatical(index: number) {
     const catGramaticales = this.getCatGramaticales();
+    const catGramatical = catGramaticales.at(index) as FormGroup;
 
-    catGramaticales.removeAt(index);
+    if (this.getSubGramaticales(catGramatical).length === 0) {
+      catGramaticales.removeAt(index);
+    }
   }
 
   getSubGramaticales(catGramatical: FormGroup): FormArray {
@@ -212,8 +215,6 @@ export class AgregarDiccionarioComponent implements OnInit {
   /* ----- Metodos para guardar en la base de datos ----- */
 
   onSubmit() {
-    console.log(this.diccionarioFormGroup.value);
-
     const diccionario = this.diccionarioFormGroup.value
       .diccionario as Diccionario;
 
@@ -247,9 +248,9 @@ export class AgregarDiccionarioComponent implements OnInit {
         listaInfMar = this.diccionarioFormGroup.value[nombreServicio]["lista"];
 
         // tslint:disable-next-line: prefer-for-of
-        for (let i = 0; i < listaInfMar.length; ++i) {
+        for (let infMar of listaInfMar) {
           this.informacionMarcacion[nombreServicio]
-            .crear(diccionarioNuevo.id, listaInfMar[i])
+            .crear(diccionarioNuevo.id, infMar)
             .subscribe();
         }
       }

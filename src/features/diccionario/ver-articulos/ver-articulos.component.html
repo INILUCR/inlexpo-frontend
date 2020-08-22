@@ -5,7 +5,7 @@
   <section>
     <div class="busqueda">
       <p>
-        <button (click)="goToCreateArticulo()">Agregar</button>
+        <button (click)="goToAgregarArticulo()">Agregar</button>
       </p>
 
       <p>
@@ -144,7 +144,7 @@
       <div *ngIf="articulo" class="articulo">
         <h3>{{ articulo.lema }}</h3>
 
-        <button (click)="goToModifyArticulo()">Editar</button>
+        <button (click)="goToEditarArticulo()">Editar</button>
 
         <ol>
           <li *ngFor="let acepcion of acepciones">

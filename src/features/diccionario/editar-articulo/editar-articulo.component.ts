@@ -107,6 +107,10 @@ export class EditarArticuloComponent implements OnInit {
       acepciones: this.formBuilder.array([]),
     });
 
+    this.catGramaticales = this.catGramaticalService.buscarPorDiccionario(
+      diccionarioId
+    );
+
     // Primero pedimos los datos del articulo
     this.articuloService
       .buscarPorId(diccionarioId, articuloId)
@@ -121,15 +125,23 @@ export class EditarArticuloComponent implements OnInit {
           .subscribe((acepciones) => {
             acepciones.forEach((acepcion, index) => {
               this.addAcepcion(acepcion);
+
+              // Este metodo es necesario para saber que subcategorias hay que mostrar
+              if (acepcion.catGramatical !== undefined) {
+                this.catGramaticales.subscribe((catGramaticales) => {
+                  for (let i = 0; i < catGramaticales.length; ++i) {
+                    if (acepcion.catGramatical.id === catGramaticales[i].id) {
+                      this.listaDeSubGrmAMostrar[index] = i;
+                      break;
+                    }
+                  }
+                });
+              }
             });
           });
       });
 
     // Pedimos las categorias y subcategorias asociadas al diccionario
-    this.catGramaticales = this.catGramaticalService.buscarPorDiccionario(
-      diccionarioId
-    );
-
     this.catGramaticales.subscribe((catGramaticales) => {
       for (let i = 0; i < catGramaticales.length; ++i) {
         this.subGramaticalService
@@ -265,7 +277,6 @@ export class EditarArticuloComponent implements OnInit {
     const id = acepciones.at(index).value.id;
     if (id) {
       this.acepcionesEliminadas.push(id);
-      console.log(this.acepcionesEliminadas);
     }
 
     acepciones.removeAt(index);
