@@ -3,11 +3,13 @@
     Orden de los elementos en el pdf (*0 hace que el elemnto no aparezca):
   </h3>
 
-  <div formGroupName="orden">
-    <label *ngFor="let elementoAcepcion of elementosAcepcion; index as i">
-      {{ nombreElementosAcepcion[i] }}:
-      <input type="number" formControlName="{{ elementoAcepcion }}" min="0" />
-    </label>
+  <div formGroupName="orden" class="orden">
+    <p *ngFor="let elementoAcepcion of elementosAcepcion; index as i">
+      <label>
+        {{ nombreElementosAcepcion[i] }}:
+        <input type="number" formControlName="{{ elementoAcepcion }}" min="0" />
+      </label>
+    </p>
   </div>
 
   <hr />

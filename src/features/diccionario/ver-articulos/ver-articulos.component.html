@@ -1,6 +1,7 @@
 <main>
   <h2 *ngIf="diccionario | async as diccionario">{{ diccionario.nombre }}</h2>
-  <button (click)="exportarDiccionario()">Exportar diccionario</button>
+
+  <p><button (click)="exportarDiccionario()">Exportar diccionario</button></p>
 
   <section>
     <div class="busqueda">
@@ -10,6 +11,8 @@
 
       <p>
         <label for="inicio">Comienza por:</label>
+        <br />
+
         <input
           id="inicio"
           type="search"
@@ -38,6 +41,8 @@
 
       <p>
         <label for="contiene">Contiene:</label>
+        <br />
+
         <input
           id="contiene"
           type="search"
@@ -66,6 +71,8 @@
 
       <p>
         <label for="termina">Termina por:</label>
+        <br />
+
         <input
           id="termina"
           type="search"
@@ -114,7 +121,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="articulo-y-busqueda-avanzada">
       <form [formGroup]="buscadorArticuloFormGroup" (ngSubmit)="onSubmit()">
         <p>
           <label>

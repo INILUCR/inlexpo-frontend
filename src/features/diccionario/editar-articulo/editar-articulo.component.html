@@ -34,6 +34,13 @@
 
       <p>
         <label>
+          Definición:
+          <textarea formControlName="definicion"></textarea>
+        </label>
+      </p>
+
+      <p class="cat-gramatical">
+        <label>
           Catgoria gramatical:
           <select
             formControlName="catGramaticalId"
@@ -49,81 +56,86 @@
             </option>
           </select>
         </label>
+
+        <span
+          *ngIf="
+            listaDeSubGrmAMostrar[index] !== undefined &&
+            listaDeSubGrmAMostrar[index] >= 0
+          "
+        >
+          <label>
+            Subcatgoria gramatical:
+            <select formControlName="subGramaticalId">
+              <option disabled>Seleccione una subcategoria</option>
+              <option value="-1">Ninguna</option>
+              <option
+                *ngFor="
+                  let subGramatical of listaDeListasDeSubGrm[
+                    listaDeSubGrmAMostrar[index]
+                  ]
+                "
+                value="{{ subGramatical.id }}"
+              >
+                {{ subGramatical.nombre }}
+              </option>
+            </select>
+          </label>
+        </span>
       </p>
 
-      <p
-        *ngIf="
-          listaDeSubGrmAMostrar[index] !== undefined &&
-          listaDeSubGrmAMostrar[index] >= 0
-        "
-      >
-        <label>
-          Subcatgoria gramatical:
-          <select formControlName="subGramaticalId">
-            <option disabled>Seleccione una subcategoria</option>
-            <option value="-1">Ninguna</option>
-            <option
-              *ngFor="
-                let subGramatical of listaDeListasDeSubGrm[
-                  listaDeSubGrmAMostrar[index]
-                ]
-              "
-              value="{{ subGramatical.id }}"
-            >
-              {{ subGramatical.nombre }}
-            </option>
-          </select>
-        </label>
-      </p>
+      <div class="informacion-marcacion">
+        <p
+          *ngFor="let informacionNombre of listaInformacionNombres"
+          class="elemento"
+        >
+          <label>
+            Información {{ informacionNombre[0] }}:
+            <select [formControlName]="informacionNombre[1]">
+              <option disabled>
+                Seleccione una información {{ informacionNombre[0] }}
+              </option>
+              <option value="-1">Ninguna</option>
+              <option
+                *ngFor="
+                  let informacion of informacionMarcacion[informacionNombre[1]]
+                    | async
+                "
+                value="{{ informacion.id }}"
+              >
+                {{ informacion.nombre }}
+              </option>
+            </select>
+          </label>
+        </p>
+      </div>
 
-      <p *ngFor="let informacionNombre of listaInformacionNombres">
-        <label>
-          Información {{ informacionNombre[0] }}:
-          <select [formControlName]="informacionNombre[1]">
-            <option disabled
-              >Seleccione una información {{ informacionNombre[0] }}</option
-            >
-            <option value="-1">Ninguna</option>
-            <option
-              *ngFor="
-                let informacion of informacionMarcacion[informacionNombre[1]]
-                  | async
-              "
-              value="{{ informacion.id }}"
-            >
-              {{ informacion.nombre }}
-            </option>
-          </select>
-        </label>
-      </p>
+      <div class="informacion-marcacion">
+        <p
+          *ngFor="let marcacionNombre of listaMarcacionNombres"
+          class="elemento"
+        >
+          <label>
+            Marcación {{ marcacionNombre[0] }}:
+            <select [formControlName]="marcacionNombre[1]">
+              <option disabled>
+                Seleccione una marcación {{ marcacionNombre[0] }}
+              </option>
+              <option value="-1">Ninguna</option>
+              <option
+                *ngFor="
+                  let marcacion of informacionMarcacion[marcacionNombre[1]]
+                    | async
+                "
+                value="{{ marcacion.id }}"
+              >
+                {{ marcacion.nombre }}
+              </option>
+            </select>
+          </label>
+        </p>
+      </div>
 
-      <p *ngFor="let marcacionNombre of listaMarcacionNombres">
-        <label>
-          Marcación {{ marcacionNombre[0] }}:
-          <select [formControlName]="marcacionNombre[1]">
-            <option disabled
-              >Seleccione una marcación {{ marcacionNombre[0] }}</option
-            >
-            <option value="-1">Ninguna</option>
-            <option
-              *ngFor="
-                let marcacion of informacionMarcacion[marcacionNombre[1]]
-                  | async
-              "
-              value="{{ marcacion.id }}"
-            >
-              {{ marcacion.nombre }}
-            </option>
-          </select>
-        </label>
-      </p>
-
-      <p>
-        <label>
-          Definición:
-          <textarea formControlName="definicion"></textarea>
-        </label>
-
+      <p class="eliminar">
         <a type="button" (click)="deleteAcepcion(index)">Eliminar</a>
       </p>
     </div>
