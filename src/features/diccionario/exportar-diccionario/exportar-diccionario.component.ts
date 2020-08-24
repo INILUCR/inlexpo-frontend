@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { DiccionarioAPdfService } from "src/core/services/diccionario-a-pdf.service";
 
 @Component({
@@ -47,7 +47,8 @@ export class ExportarDiccionarioComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private diccionarioPdf: DiccionarioAPdfService
+    private diccionarioPdf: DiccionarioAPdfService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -114,5 +115,10 @@ export class ExportarDiccionarioComponent implements OnInit {
     }
 
     this.diccionarioPdf.crearPdf(diccionarioId, estilos, ordenPorNombre);
+  }
+
+  regresarAVistaArticulos() {
+    const diccionarioId = this.route.snapshot.params.diccionarioId;
+    this.router.navigate(["diccionario/" + diccionarioId]);
   }
 }

@@ -1,11 +1,14 @@
+@import '../../../styles'
+
 h2
   margin-left: 1rem
 
 section
   // Container style
   height: 87vh
+  border-color: $primary-color
   border-style: solid
-  border-width: 1px
+  border-width: 2px
   margin: 1rem
 
   // Container behaviour
@@ -22,12 +25,19 @@ p
   margin-left: 1rem
   margin-right: 1rem
 
+hr
+  border-width: 0.5px
+
 .articulos
   // Container style
   height: 55vh
 
   // Container behaviour
   overflow: auto
+
+.articulos p:hover
+  cursor: pointer
+  background-color: darken(white, 10%)
 
 .articulo-y-busqueda-avanzada
   // Container style

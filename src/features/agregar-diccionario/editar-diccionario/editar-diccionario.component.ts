@@ -412,4 +412,8 @@ export class EditarDiccionarioComponent implements OnInit {
         this.router.navigate(["inicio"]);
       });
   }
+
+  cancelar() {
+    this.router.navigate(["inicio"]);
+  }
 }

@@ -58,7 +58,9 @@
           <textarea formControlName="descripcion"></textarea>
         </label>
 
-        <a type="button" (click)="deleteCatGramatical(index)">Eliminar</a>
+        <a class="eliminar" type="button" (click)="deleteCatGramatical(index)"
+          >Eliminar</a
+        >
       </p>
 
       <!-- Iteramos por las subcategorias gramaticales -->
@@ -93,6 +95,7 @@
             </label>
 
             <a
+              class="eliminar"
               type="button"
               (click)="deleteSubGramatical(catGramatical, index2)"
               >Eliminar</a
@@ -151,10 +154,12 @@
             </label>
 
             <a
+              class="eliminar"
               type="button"
               (click)="deleteInformacionMarcacion(informacion[1], index)"
-              >Eliminar</a
             >
+              Eliminar
+            </a>
           </p>
         </div>
       </div>
@@ -203,10 +208,12 @@
             </label>
 
             <a
+              class="eliminar"
               type="button"
               (click)="deleteInformacionMarcacion(marcacion[1], index)"
-              >Eliminar</a
             >
+              Eliminar
+            </a>
           </p>
         </div>
       </div>
@@ -220,7 +227,9 @@
     </div>
   </div>
 
-  <p>
+  <p class="botones-finales">
     <button type="submit">Actualizar</button>
+
+    <button (click)="cancelar()">Cancelar</button>
   </p>
 </form>

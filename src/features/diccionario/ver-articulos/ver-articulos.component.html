@@ -1,6 +1,8 @@
 <main>
   <h2 *ngIf="diccionario | async as diccionario">{{ diccionario.nombre }}</h2>
 
+  <p><button (click)="regresarAInicio()">Regresar al Inicio</button></p>
+
   <p><button (click)="exportarDiccionario()">Exportar diccionario</button></p>
 
   <section>

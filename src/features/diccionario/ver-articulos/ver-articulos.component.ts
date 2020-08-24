@@ -90,6 +90,10 @@ export class VerArticulosComponent implements OnInit {
     this.router.navigate(["exportar"], { relativeTo: this.route });
   }
 
+  regresarAInicio() {
+    this.router.navigate(["inicio"]);
+  }
+
   onSubmit() {
     const diccionarioId = this.route.snapshot.params.diccionarioId;
     const filtroAcepciones = this.buscadorArticuloFormGroup

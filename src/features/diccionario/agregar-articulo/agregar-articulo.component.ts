@@ -229,4 +229,9 @@ export class AgregarArticuloComponent implements OnInit {
     const listaAMostrar = event.target["selectedIndex"] - 2;
     this.listaDeSubGrmAMostrar[index] = listaAMostrar;
   }
+
+  cancelar() {
+    const diccionarioId = this.route.snapshot.params.diccionarioId;
+    this.router.navigate(["diccionario/" + diccionarioId]);
+  }
 }
